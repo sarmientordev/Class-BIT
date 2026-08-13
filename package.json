@@ -1,6 +1,6 @@
 {
   "name": "class-bit",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Horario universitario estilo pixel art para PC con notificaciones de clase y festivos de Colombia",
   "main": "main.js",
   "scripts": {
