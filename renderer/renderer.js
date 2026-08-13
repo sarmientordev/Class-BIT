@@ -805,6 +805,32 @@ function refreshAll() {
   renderCurrentDate();
 }
 
+// ── SYNCHRONIZE TO TODAY ─────────────────────────
+let lastKnownDateKey = null;
+
+function dateKeyLocal(d) {
+  return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+}
+
+// Salta al día actual (al abrir o al volver a mostrar la ventana)
+function jumpToToday() {
+  const todayIdx = dayOfWeekMon0(new Date());
+  if (state.selectedDay !== todayIdx) {
+    state.selectedDay = todayIdx;
+    refreshAll();
+  }
+}
+
+// Detecta el cambio de fecha (medianoche) mientras la app está abierta
+function checkDateRollover() {
+  const now = new Date();
+  const k = dateKeyLocal(now);
+  if (k !== lastKnownDateKey) {
+    lastKnownDateKey = k;
+    jumpToToday();
+  }
+}
+
 // ── EVENTS ───────────────────────────────────────
 function bindEvents() {
   document.querySelectorAll('.day-tab').forEach(tab => {
@@ -923,8 +949,8 @@ function bindEvents() {
 // ── INIT ─────────────────────────────────────────
 function init() {
   const now = new Date();
-  const todayIdx = dayOfWeekMon0(now);
-  state.selectedDay = todayIdx < 6 ? todayIdx : 6;
+  lastKnownDateKey = dateKeyLocal(now);
+  state.selectedDay = dayOfWeekMon0(now);
 
   populateTimeSelects();
   buildColorPicker();
@@ -943,6 +969,15 @@ function init() {
 
   // Reloj en tiempo real (actualiza cada segundo)
   setInterval(updateClock, 1000);
+
+  // Mantiene HOY sincronizado: al reabrir la ventana y en cambio de fecha
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) {
+      lastKnownDateKey = dateKeyLocal(new Date());
+      jumpToToday();
+    }
+  });
+  setInterval(checkDateRollover, 60 * 1000);
 }
 
 document.addEventListener('DOMContentLoaded', init);
