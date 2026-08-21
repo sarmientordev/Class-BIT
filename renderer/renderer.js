@@ -7,7 +7,7 @@ const DAY_SHORT = ['LUN', 'MAR', 'MIÉ', 'JUE', 'VIE', 'SÁB', 'DOM'];
 
 // Paleta de colores para clases (tonos suaves tipo insignia, verde menta destacado)
 const PALETTE = [
-  '#83D2AE', // verde menta
+  '#4DD09E', // verde menta vivo
   '#E8837E', // coral suave
   '#F2B877', // naranja pastel
   '#FFD666', // amarillo suave
@@ -541,6 +541,7 @@ function closeThemeConfirm() {
 // ── CUSTOM THEME EDITOR ──────────────────────────
 const CUSTOM_ITEMS = [
   { key: 'text', label: 'TIPOGRAFÍA', desc: 'Cambia el color del texto y las letras en toda la app', cssVar: '--text-primary' },
+  { key: 'classname', label: 'NOMBRE DE CLASE', desc: 'Cambia el color del nombre de la materia en las tarjetas de clase', cssVar: '--class-name-color' },
   { key: 'buttons', label: 'BOTONES', desc: 'Cambia el color de fondo de los botones', cssVar: '--accent-magenta' },
   { key: 'time', label: 'HORA', desc: 'Cambia el color de las horas, la fecha y el reloj en vivo', cssVar: '--time-color' },
   { key: 'hover', label: 'RESALTOS', desc: 'Cambia el color del resaltado al pasar el cursor', cssVar: '--accent-pink' },
@@ -551,13 +552,13 @@ const CUSTOM_ITEMS = [
 
 // Colores que cada tema trae por defecto para cada objeto
 const THEME_DEFAULTS = {
-  pixel: { text: '#f4d0ff', buttons: '#c0176c', time: '#e054a0', hover: '#e054a0', lilac: '#9b5de5', arrow: '#00f5d4', titlebar: '#0d0618' },
-  dark:  { text: '#ecf0f5', buttons: '#e23b7e', time: '#22e6c8', hover: '#ff5ca8', lilac: '#7f6cf2', arrow: '#22e6c8', titlebar: '#0b0d10' },
-  light: { text: '#33264f', buttons: '#b32a6e', time: '#0aa893', hover: '#d63c8c', lilac: '#6a4fd0', arrow: '#0aa893', titlebar: '#f4f1fa' },
-  forest:   { text: '#d4ffe8', buttons: '#00cc6a', time: '#00ff88', hover: '#00ff88', lilac: '#00e5cc', arrow: '#00e5cc', titlebar: '#020c06' },
-  synthwave:{ text: '#fff0e8', buttons: '#ff3e96', time: '#ff6b35', hover: '#ff6b35', lilac: '#ffaa00', arrow: '#00d4ff', titlebar: '#050510' },
-  spider:   { text: '#0d2137', buttons: '#cc0000', time: '#cc0000', hover: '#ff4444', lilac: '#1a3a5c', arrow: '#cc0000', titlebar: '#081a30' },
-  custom:{ text: '#f4d0ff', buttons: '#c0176c', time: '#e054a0', hover: '#e054a0', lilac: '#9b5de5', arrow: '#00f5d4', titlebar: '#0d0618' },
+  pixel: { text: '#f4d0ff', classname: '#f4d0ff', buttons: '#c0176c', time: '#e054a0', hover: '#e054a0', lilac: '#9b5de5', arrow: '#00f5d4', titlebar: '#0d0618' },
+  dark:  { text: '#ecf0f5', classname: '#ecf0f5', buttons: '#e23b7e', time: '#22e6c8', hover: '#ff5ca8', lilac: '#7f6cf2', arrow: '#22e6c8', titlebar: '#0b0d10' },
+  light: { text: '#33264f', classname: '#33264f', buttons: '#b32a6e', time: '#0aa893', hover: '#d63c8c', lilac: '#6a4fd0', arrow: '#0aa893', titlebar: '#f4f1fa' },
+  forest:   { text: '#d4ffe8', classname: '#d4ffe8', buttons: '#00cc6a', time: '#00ff88', hover: '#00ff88', lilac: '#00e5cc', arrow: '#00e5cc', titlebar: '#020c06' },
+  synthwave:{ text: '#fff0e8', classname: '#fff0e8', buttons: '#ff3e96', time: '#ff6b35', hover: '#ff6b35', lilac: '#ffaa00', arrow: '#00d4ff', titlebar: '#050510' },
+  spider:   { text: '#0d2137', classname: '#cc0000', buttons: '#cc0000', time: '#cc0000', hover: '#ff4444', lilac: '#1a3a5c', arrow: '#cc0000', titlebar: '#081a30' },
+  custom:{ text: '#f4d0ff', classname: '#f4d0ff', buttons: '#c0176c', time: '#e054a0', hover: '#e054a0', lilac: '#9b5de5', arrow: '#00f5d4', titlebar: '#0d0618' },
 };
 
 const THEME_NAMES = {

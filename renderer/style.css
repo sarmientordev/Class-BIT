@@ -557,6 +557,7 @@ html[data-theme="spider"] {
   --time-color:   #cc0000;
   --arrow-color:  #cc0000;
   --titlebar-bg:  #081a30;
+  --class-name-color: #cc0000;
 }
 
 /* ── Fondo azul cielo con trama de telaraña (20px como el concepto) ── */
@@ -667,16 +668,16 @@ html[data-theme="spider"] .holiday-banner {
   box-shadow: 3px 3px 0 0 #0d2137;
 }
 
-/* ── Pestañas de día: naranja PASTEL apagado; activa NARANJA FUERTE muy distintiva ── */
+/* ── Pestañas de día: naranja vivo; activa NARANJA FUERTE desplazada ── */
 html[data-theme="spider"] .day-tab {
-  background: #f2c48d;
-  color: #0d2137;
-  border-color: #dba36a;
-  box-shadow: inset -2px -2px 0 0 rgba(0,0,0,0.12), inset 2px 2px 0 0 rgba(255,255,255,0.35);
+  background: #ef6c00;
+  color: #fff;
+  border-color: #c43e00;
+  box-shadow: inset -2px -2px 0 0 rgba(0,0,0,0.25), inset 2px 2px 0 0 rgba(255,255,255,0.15);
 }
 html[data-theme="spider"] .day-tab:hover {
-  background: #f7d2a0;
-  color: #0d2137;
+  background: #fb8c00;
+  color: #fff;
 }
 html[data-theme="spider"] .day-tab.active {
   background: #e65100;
@@ -792,18 +793,18 @@ html[data-theme="spider"] .btn-primary:hover {
 }
 html[data-theme="spider"] .btn-secondary { color: #ff4444; border-color: #ff4444; }
 html[data-theme="spider"] .btn-secondary:hover { background: rgba(255,68,68,0.12); }
-/* Botones de cabecera (🔔 ajustes, agregar) en VERDE MENTA #83D2AE */
+/* Botones de cabecera (🔔 ajustes, agregar) en VERDE MENTA vivo #4DD09E */
 html[data-theme="spider"] .icon-btn {
-  background: #83d2ae;
-  border-color: #5aab88;
+  background: #4dd09e;
+  border-color: #2fa87c;
   color: #0d2137;
-  box-shadow: 2px 2px 0 0 #3e8a68;
+  box-shadow: 2px 2px 0 0 #1d7a57;
 }
 html[data-theme="spider"] .icon-btn:hover {
-  background: #a3e0c4;
-  border-color: #3e8a68;
+  background: #7ce0bd;
+  border-color: #1d7a57;
   color: #0d2137;
-  box-shadow: 2px 2px 0 0 #3e8a68, 0 0 10px rgba(131,210,174,0.55);
+  box-shadow: 2px 2px 0 0 #1d7a57, 0 0 10px rgba(77,208,158,0.6);
 }
 
 /* ── Modales: ventanas navy con aro rojo ── */
@@ -1059,7 +1060,7 @@ body {
 .card-accent { width: 8px; flex-shrink: 0; background: var(--card-color); box-shadow: inset -2px 0 0 0 rgba(0,0,0,0.3); position: relative; }
 .card-accent::after { content:''; position:absolute; top:8px; bottom:8px; right:0; width:2px; background:rgba(255,255,255,0.2); }
 .card-body { flex: 1; padding: 14px 16px; display: flex; flex-direction: column; gap: 7px; }
-.card-name { font-family: var(--font-pixel); font-size: 9px; color: var(--text-primary); line-height: 1.5; text-shadow: 1px 1px 0 rgba(0,0,0,0.5); }
+.card-name { font-family: var(--font-pixel); font-size: 9px; color: var(--class-name-color, var(--text-primary)); line-height: 1.5; text-shadow: 1px 1px 0 rgba(0,0,0,0.5); }
 .card-meta { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
 .card-time { font-family: var(--font-vt); font-size: 20px; color: var(--time-color); letter-spacing: 1px; }
 .card-room { font-family: var(--font-vt); font-size: 16px; color: var(--text-secondary); background: var(--bg-panel); padding: 2px 8px; border: 1px solid var(--border-pixel); }
