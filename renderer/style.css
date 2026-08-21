@@ -530,19 +530,19 @@ html[data-theme="spider"] {
   --bg-deep:       #0a1e38;
   --bg-dark:       #4fc3f7;
   --bg-panel:      #0d2137;
-  --bg-card:       #e3f2fd;
-  --bg-card-hover: #ffffff;
+  --bg-card:       #ffd600;
+  --bg-card-hover: #ffea00;
   --accent-pink:   #ff4444;
   --accent-magenta:#cc0000;
   --accent-purple: #1a3a5c;
-  --accent-cyan:   #00e676;
+  --accent-cyan:   #d50000;
   --accent-yellow: #ffd600;
   --text-primary:  #0d2137;
   --text-secondary:#1a3a5c;
   --text-dim:      #4a7196;
   --border-pixel:  #0d2137;
   --shadow-glow:   rgba(204, 0, 0, 0.35);
-  --shadow-cyan:   rgba(0, 230, 118, 0.25);
+  --shadow-cyan:   rgba(204, 0, 0, 0.25);
 
   --header-grad-1:#081a30;
   --header-grad-2:#0d2137;
@@ -554,8 +554,8 @@ html[data-theme="spider"] {
   --chip-text:    #0a1e38;
   --toast-border: #ffd600;
   --status-border:#0d2137;
-  --time-color:   #00e676;
-  --arrow-color:  #ffd600;
+  --time-color:   #cc0000;
+  --arrow-color:  #cc0000;
   --titlebar-bg:  #081a30;
 }
 
@@ -667,23 +667,25 @@ html[data-theme="spider"] .holiday-banner {
   box-shadow: 3px 3px 0 0 #0d2137;
 }
 
-/* ── Pestañas de día: navy con texto celeste, activa ROJA desplazada ── */
+/* ── Pestañas de día: naranjas, activa NARANJA FUERTE desplazada ── */
 html[data-theme="spider"] .day-tab {
-  color: #9fd4f5;
-  border-color: #2a5a8c;
+  background: #ef6c00;
+  color: #fff;
+  border-color: #c43e00;
+  box-shadow: inset -2px -2px 0 0 rgba(0,0,0,0.25), inset 2px 2px 0 0 rgba(255,255,255,0.15);
 }
 html[data-theme="spider"] .day-tab:hover {
-  background: #1a3a5c;
-  color: #d9f1ff;
+  background: #fb8c00;
+  color: #fff;
 }
 html[data-theme="spider"] .day-tab.active {
-  background: #cc0000;
+  background: #e65100;
   color: #fff;
-  border-color: #ff4444;
+  border-color: #ff9d3c;
   text-shadow: 1px 1px 0 rgba(0,0,0,0.4);
   box-shadow:
     0 var(--px) 0 0 #ffd600,
-    0 0 14px rgba(255,68,68,0.45);
+    0 0 14px rgba(230,81,0,0.55);
   transform: translate(-1px, -1px);
 }
 
@@ -738,9 +740,9 @@ html[data-theme="spider"] .card-room {
   box-shadow: 1px 1px 0 0 #1b5e20;
 }
 html[data-theme="spider"] .card-edit-btn { border-color: #2a5a8c; }
-/* Clase en curso: crema + borde rojo + brillo (current del concepto) */
+/* Clase en curso: amarillo más profundo + borde rojo + brillo */
 html[data-theme="spider"] .class-card.is-current {
-  background: #fff9e6;
+  background: #ffc107;
   border-color: #cc0000;
   box-shadow:
     3px 3px 0 0 #660000,
@@ -791,15 +793,16 @@ html[data-theme="spider"] .btn-primary:hover {
 html[data-theme="spider"] .btn-secondary { color: #ff4444; border-color: #ff4444; }
 html[data-theme="spider"] .btn-secondary:hover { background: rgba(255,68,68,0.12); }
 html[data-theme="spider"] .icon-btn {
-  background: #1a3a5c;
-  border-color: #2a5a8c;
-  color: #9fd4f5;
-  box-shadow: 2px 2px 0 0 #0a1e38;
+  background: #ef6c00;
+  border-color: #c43e00;
+  color: #fff;
+  box-shadow: 2px 2px 0 0 #8f3e00;
 }
 html[data-theme="spider"] .icon-btn:hover {
-  border-color: #ff4444;
-  color: #ff6666;
-  box-shadow: 2px 2px 0 0 #0a1e38, 0 0 10px rgba(255,68,68,0.45);
+  background: #e65100;
+  border-color: #ff9d3c;
+  color: #fff;
+  box-shadow: 2px 2px 0 0 #8f3e00, 0 0 10px rgba(230,81,0,0.5);
 }
 
 /* ── Modales: ventanas navy con aro rojo ── */
@@ -826,9 +829,29 @@ html[data-theme="spider"] .pixel-input {
 html[data-theme="spider"] .pixel-input:focus { border-color: #ff4444; box-shadow: 0 0 0 2px rgba(255,68,68,0.25); }
 html[data-theme="spider"] .pixel-input::placeholder { color: #6f95b8; }
 html[data-theme="spider"] .toggle-btn { border-color: #2a5a8c; }
-html[data-theme="spider"] .toggle-btn::after { background: #9fd4f5; }
-html[data-theme="spider"] .day-check span { border-color: #2a5a8c; color: #9fd4f5; }
-html[data-theme="spider"] .theme-color-palette { border-color: #00e676; }
+html[data-theme="spider"] .toggle-btn::after { background: #ff6d3c; }
+html[data-theme="spider"] .day-check span {
+  background: #ef6c00;
+  border-color: #c43e00;
+  color: #fff;
+}
+html[data-theme="spider"] .day-check input:checked + span {
+  background: #e65100;
+  border-color: #ff9d3c;
+  color: #fff;
+}
+/* Selector de colores: marcos y selección en amarillo/naranja legibles */
+html[data-theme="spider"] .theme-color-palette { border-color: #ffd600; }
+html[data-theme="spider"] .palette-swatch { border-color: #ffd600; }
+html[data-theme="spider"] .palette-swatch.selected {
+  border-color: #ffd600;
+  box-shadow: 0 0 0 2px #ffd600, 0 0 10px rgba(255,214,0,0.7);
+}
+html[data-theme="spider"] .color-swatch:hover,
+html[data-theme="spider"] .color-swatch.selected {
+  border-color: #ffd600;
+  box-shadow: 0 0 12px rgba(255,214,0,0.8);
+}
 
 /* Toast = popup amarillo con borde navy (popup-notification del concepto) */
 html[data-theme="spider"] .pixel-toast {
