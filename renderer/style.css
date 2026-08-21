@@ -667,16 +667,16 @@ html[data-theme="spider"] .holiday-banner {
   box-shadow: 3px 3px 0 0 #0d2137;
 }
 
-/* ── Pestañas de día: naranjas, activa NARANJA FUERTE desplazada ── */
+/* ── Pestañas de día: naranja PASTEL apagado; activa NARANJA FUERTE muy distintiva ── */
 html[data-theme="spider"] .day-tab {
-  background: #ef6c00;
-  color: #fff;
-  border-color: #c43e00;
-  box-shadow: inset -2px -2px 0 0 rgba(0,0,0,0.25), inset 2px 2px 0 0 rgba(255,255,255,0.15);
+  background: #f2c48d;
+  color: #0d2137;
+  border-color: #dba36a;
+  box-shadow: inset -2px -2px 0 0 rgba(0,0,0,0.12), inset 2px 2px 0 0 rgba(255,255,255,0.35);
 }
 html[data-theme="spider"] .day-tab:hover {
-  background: #fb8c00;
-  color: #fff;
+  background: #f7d2a0;
+  color: #0d2137;
 }
 html[data-theme="spider"] .day-tab.active {
   background: #e65100;
@@ -792,17 +792,18 @@ html[data-theme="spider"] .btn-primary:hover {
 }
 html[data-theme="spider"] .btn-secondary { color: #ff4444; border-color: #ff4444; }
 html[data-theme="spider"] .btn-secondary:hover { background: rgba(255,68,68,0.12); }
+/* Botones de cabecera (🔔 ajustes, agregar) en VERDE MENTA #83D2AE */
 html[data-theme="spider"] .icon-btn {
-  background: #ef6c00;
-  border-color: #c43e00;
-  color: #fff;
-  box-shadow: 2px 2px 0 0 #8f3e00;
+  background: #83d2ae;
+  border-color: #5aab88;
+  color: #0d2137;
+  box-shadow: 2px 2px 0 0 #3e8a68;
 }
 html[data-theme="spider"] .icon-btn:hover {
-  background: #e65100;
-  border-color: #ff9d3c;
-  color: #fff;
-  box-shadow: 2px 2px 0 0 #8f3e00, 0 0 10px rgba(230,81,0,0.5);
+  background: #a3e0c4;
+  border-color: #3e8a68;
+  color: #0d2137;
+  box-shadow: 2px 2px 0 0 #3e8a68, 0 0 10px rgba(131,210,174,0.55);
 }
 
 /* ── Modales: ventanas navy con aro rojo ── */

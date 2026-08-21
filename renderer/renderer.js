@@ -5,18 +5,18 @@
 const DAY_NAMES = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
 const DAY_SHORT = ['LUN', 'MAR', 'MIÉ', 'JUE', 'VIE', 'SÁB', 'DOM'];
 
-// Paleta pálida pero distintiva (10 colores pastel)
+// Paleta de colores para clases (tonos suaves tipo insignia, verde menta destacado)
 const PALETTE = [
-  '#f48fb1', // rosa
-  '#ce93d8', // lila
-  '#90caf9', // azul
-  '#80cbc4', // menta
-  '#fff176', // amarillo
-  '#ffab91', // salmón
-  '#a5d6a7', // verde
-  '#ffcc80', // naranja suave
-  '#9fa8da', // índigo claro
-  '#ef9a9a', // rojo suave
+  '#83D2AE', // verde menta
+  '#E8837E', // coral suave
+  '#F2B877', // naranja pastel
+  '#FFD666', // amarillo suave
+  '#7FD4C1', // turquesa claro
+  '#89C4F4', // celeste
+  '#BFA6E8', // lavanda
+  '#F2A2C0', // rosa suave
+  '#A8C686', // verde salvia
+  '#9BAEC8', // gris azul
 ];
 
 let state = {
