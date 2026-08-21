@@ -556,6 +556,7 @@ const THEME_DEFAULTS = {
   light: { text: '#33264f', buttons: '#b32a6e', time: '#0aa893', hover: '#d63c8c', lilac: '#6a4fd0', arrow: '#0aa893', titlebar: '#f4f1fa' },
   forest:   { text: '#d4ffe8', buttons: '#00cc6a', time: '#00ff88', hover: '#00ff88', lilac: '#00e5cc', arrow: '#00e5cc', titlebar: '#020c06' },
   synthwave:{ text: '#fff0e8', buttons: '#ff3e96', time: '#ff6b35', hover: '#ff6b35', lilac: '#ffaa00', arrow: '#00d4ff', titlebar: '#050510' },
+  spider:   { text: '#0d2137', buttons: '#cc0000', time: '#00e676', hover: '#ff4444', lilac: '#1a3a5c', arrow: '#ffd600', titlebar: '#081a30' },
   custom:{ text: '#f4d0ff', buttons: '#c0176c', time: '#e054a0', hover: '#e054a0', lilac: '#9b5de5', arrow: '#00f5d4', titlebar: '#0d0618' },
 };
 
@@ -565,6 +566,7 @@ const THEME_NAMES = {
   light: 'CLARO',
   forest: 'CYBER FOREST',
   synthwave: 'SYNTHWAVE CITY',
+  spider: 'SPIDER-VERSE',
 };
 
 // Convierte HSL → hex (genera las 5 variaciones de cada grupo)
