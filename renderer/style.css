@@ -522,9 +522,9 @@ html[data-theme="synthwave"] .class-card.is-current { border-color: var(--accent
    TEMA SPIDER-VERSE 🕷
    Basado en "Spider Tracker" (spider-concept.html):
    área principal AZUL CIELO (#4fc3f7) con telaraña,
-   paneles AZUL MARINO (#0d2137), tarjetas claras con
-   sombras pixel duras, hora en VERDE LCD (#00e676),
-   acentos ROJO Spider (#cc0000/#ff4444) y AMARILLO (#ffd600)
+   paneles AZUL MARINO (#0d2137), tarjetas AMARILLAS (#ffd600)
+   con sombras pixel duras, tipografía y hora en ROJO (#cc0000),
+   botones NARANJAS (#ef6c00/#e65100) y acentos ROJO Spider (#cc0000/#ff4444)
    ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ */
 html[data-theme="spider"] {
   --bg-deep:       #0a1e38;
