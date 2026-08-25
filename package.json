@@ -1,6 +1,6 @@
 {
   "name": "class-bit",
-  "version": "1.2.0",
+  "version": "1.0.2",
   "description": "Horario universitario estilo pixel art para PC con notificaciones de clase, festivos de Colombia y tema Spider-Verse",
   "main": "main.js",
   "scripts": {
