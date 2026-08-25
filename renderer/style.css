@@ -668,16 +668,16 @@ html[data-theme="spider"] .holiday-banner {
   box-shadow: 3px 3px 0 0 #0d2137;
 }
 
-/* ── Pestañas de día: naranja vivo; activa NARANJA FUERTE desplazada ── */
+/* ── Pestañas de día: APAGADAS sin seleccionar (chip navy, texto ámbar); activa NARANJA FUERTE ── */
 html[data-theme="spider"] .day-tab {
-  background: #ef6c00;
-  color: #fff;
-  border-color: #c43e00;
-  box-shadow: inset -2px -2px 0 0 rgba(0,0,0,0.25), inset 2px 2px 0 0 rgba(255,255,255,0.15);
+  background: #1a3a5c;
+  color: #ffd9ae;
+  border-color: #2a5a8c;
+  box-shadow: inset -2px -2px 0 0 rgba(0,0,0,0.25), inset 2px 2px 0 0 rgba(255,255,255,0.08);
 }
 html[data-theme="spider"] .day-tab:hover {
-  background: #fb8c00;
-  color: #fff;
+  background: #24507e;
+  color: #ffe8cf;
 }
 html[data-theme="spider"] .day-tab.active {
   background: #e65100;
@@ -767,9 +767,32 @@ html[data-theme="spider"] .w-chip { box-shadow: 2px 2px 0 0 rgba(13,33,55,0.55);
 html[data-theme="spider"] .festivo-item { border-width: 3px; box-shadow: 3px 3px 0 0 #0d2137; }
 html[data-theme="spider"] .festivos-title { color: #cc0000; text-shadow: 1px 1px 0 rgba(255,255,255,0.5); }
 
-/* Estado vacío: mini-Spidey (cabeza roja, traje azul con franja roja) */
-html[data-theme="spider"] .char-head { background: #ff4444; box-shadow: -4px 4px 0 0 #ff4444, 4px 4px 0 0 #ff4444, 4px 8px 0 0 #0a1e38, 12px 8px 0 0 #0a1e38; }
-html[data-theme="spider"] .char-legs { background: #0d2137; }
+/* Estado vacío: SPIDER-MAN pixel-art (máscara roja con ojos blancos, torso rojo, piernas navy, botas rojas) */
+html[data-theme="spider"] .pixel-character { display: none; }
+html[data-theme="spider"] .spidey { display: block; }
+html[data-theme="spider"] .spidey::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 6px; height: 6px;
+  box-shadow:
+    /* cabeza roja */ #e03131 24px 0, #e03131 30px 0, #e03131 36px 0, #e03131 42px 0,
+    #e03131 18px 6px, #e03131 24px 6px, #e03131 30px 6px, #e03131 36px 6px, #e03131 42px 6px, #e03131 48px 6px,
+    /* ojos blancos */ #ffffff 24px 12px, #ffffff 42px 12px,
+    #e03131 12px 12px, #e03131 18px 12px, #e03131 30px 12px, #e03131 36px 12px, #e03131 48px 12px, #e03131 54px 12px,
+    #ffffff 18px 18px, #ffffff 24px 18px, #ffffff 42px 18px, #ffffff 48px 18px,
+    #e03131 12px 18px, #e03131 30px 18px, #e03131 36px 18px, #e03131 54px 18px,
+    #e03131 12px 24px, #e03131 18px 24px, #e03131 24px 24px, #e03131 30px 24px, #e03131 36px 24px, #e03131 42px 24px, #e03131 48px 24px, #e03131 54px 24px,
+    #e03131 18px 30px, #e03131 24px 30px, #e03131 30px 30px, #e03131 36px 30px, #e03131 42px 30px, #e03131 48px 30px,
+    /* hombros y brazos rojos */ #e03131 12px 36px, #e03131 18px 36px, #e03131 24px 36px, #e03131 30px 36px, #e03131 36px 36px, #e03131 42px 36px, #e03131 48px 36px, #e03131 54px 36px,
+    #e03131 6px 42px, #e03131 12px 42px, #e03131 18px 42px, #e03131 24px 42px, #e03131 30px 42px, #e03131 36px 42px, #e03131 42px 42px, #e03131 48px 42px, #e03131 54px 42px, #e03131 60px 42px,
+    #e03131 6px 48px, #e03131 12px 48px, #e03131 18px 48px, #e03131 24px 48px, #e03131 30px 48px, #e03131 36px 48px, #e03131 42px 48px, #e03131 48px 48px, #e03131 54px 48px, #e03131 60px 48px,
+    #e03131 12px 54px, #e03131 18px 54px, #e03131 24px 54px, #e03131 30px 54px, #e03131 36px 54px, #e03131 42px 54px, #e03131 48px 54px, #e03131 54px 54px,
+    /* piernas azul navy */ #1a3a5c 18px 60px, #1a3a5c 24px 60px, #1a3a5c 30px 60px, #1a3a5c 36px 60px, #1a3a5c 42px 60px, #1a3a5c 48px 60px,
+    #1a3a5c 18px 66px, #1a3a5c 24px 66px, #1a3a5c 30px 66px, #1a3a5c 42px 66px, #1a3a5c 48px 66px, #1a3a5c 54px 66px,
+    #1a3a5c 18px 72px, #1a3a5c 24px 72px, #1a3a5c 30px 72px, #1a3a5c 42px 72px, #1a3a5c 48px 72px, #1a3a5c 54px 72px,
+    /* botas rojas */ #e03131 18px 78px, #e03131 24px 78px, #e03131 30px 78px, #e03131 42px 78px, #e03131 48px 78px, #e03131 54px 78px;
+}
 html[data-theme="spider"] .empty-sub { color: #1a3a5c; }
 
 /* ── Navegación inferior navy con borde rojo (bottom-grid del concepto) ── */
@@ -833,9 +856,9 @@ html[data-theme="spider"] .pixel-input::placeholder { color: #6f95b8; }
 html[data-theme="spider"] .toggle-btn { border-color: #2a5a8c; }
 html[data-theme="spider"] .toggle-btn::after { background: #ff6d3c; }
 html[data-theme="spider"] .day-check span {
-  background: #ef6c00;
-  border-color: #c43e00;
-  color: #fff;
+  background: #16375c;
+  border-color: #2a5a8c;
+  color: #ffd9ae;
 }
 html[data-theme="spider"] .day-check input:checked + span {
   background: #e65100;
@@ -1074,6 +1097,7 @@ body {
 .empty-state { display: none; flex-direction: column; align-items: center; justify-content: center; padding: 50px 20px; text-align: center; gap: 16px; }
 .empty-state.show { display: flex; }
 .pixel-character { width: 32px; height: 48px; margin: 0 auto 12px; position: relative; animation: charBounce 1.5s steps(2) infinite; }
+.spidey { display: none; width: 72px; height: 84px; margin: 0 auto 12px; position: relative; animation: charBounce 1.5s steps(2) infinite; }
 @keyframes charBounce { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-8px);} }
 .char-head { width: 24px; height: 24px; background: #f4a0c8; margin: 0 auto; position: relative; box-shadow: -4px 4px 0 0 #f4a0c8, 4px 4px 0 0 #f4a0c8, 4px 8px 0 0 #1a0a2e, 12px 8px 0 0 #1a0a2e; }
 .char-body { width: 32px; height: 16px; background: var(--accent-purple); margin: 0 auto; box-shadow: inset 8px 0 0 0 var(--accent-magenta); }
@@ -1268,7 +1292,7 @@ select.pixel-input { cursor: pointer; }
 .day-checkboxes { display: flex; gap: 8px; }
 .day-check { position: relative; cursor: pointer; }
 .day-check input { position: absolute; opacity: 0; width: 0; height: 0; }
-.day-check span { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: var(--bg-panel); border: var(--px) solid var(--border-pixel); font-family: var(--font-pixel); font-size: 8px; color: var(--text-dim); transition: all 0.1s steps(2); box-shadow: 1px 1px 0 0 rgba(0,0,0,0.3); }
+.day-check span { display: flex; align-items: center; justify-content: center; width: 42px; height: 36px; background: var(--bg-panel); border: var(--px) solid var(--border-pixel); font-family: var(--font-pixel); font-size: 8px; color: var(--text-dim); transition: all 0.1s steps(2); box-shadow: 1px 1px 0 0 rgba(0,0,0,0.3); }
 .day-check input:checked + span { background: var(--accent-magenta); border-color: var(--accent-pink); color: #fff; box-shadow: 1px 1px 0 0 rgba(0,0,0,0.3), 0 0 8px rgba(192,23,108,0.5); }
 
 .color-picker { display: flex; gap: 10px; flex-wrap: wrap; }
