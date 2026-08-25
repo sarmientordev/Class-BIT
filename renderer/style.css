@@ -689,6 +689,11 @@ html[data-theme="spider"] .day-tab.active {
     0 0 14px rgba(230,81,0,0.55);
   transform: translate(-1px, -1px);
 }
+/* Indicador HOY en tema spider: punto rojo brillante */
+html[data-theme="spider"] .day-tab.today-tab::after {
+  background: #cc0000;
+  box-shadow: 0 0 6px #cc0000;
+}
 
 /* Barra de estado estilo LCD sobre el fondo celeste */
 html[data-theme="spider"] .status-bar { border-color: #2a5a8c; }
@@ -1027,6 +1032,24 @@ body {
 @keyframes cursorDrop {
   from { transform: translateX(-50%) translateY(-8px); }
   to   { transform: translateX(-50%) translateY(6px); }
+}
+
+/* Indicador del día de HOY: pequeño punto debajo del nombre del día */
+.day-tab.today-tab::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  background: var(--accent-cyan);
+  box-shadow: 0 0 6px var(--accent-cyan);
+  animation: todayPulse 1.5s ease-in-out infinite;
+}
+@keyframes todayPulse {
+  0%, 100% { opacity: 0.7; transform: translateX(-50%) scale(1); }
+  50% { opacity: 1; transform: translateX(-50%) scale(1.2); }
 }
 
 /* ═══ MAIN ═══ */
