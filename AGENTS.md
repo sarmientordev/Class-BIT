@@ -11,6 +11,17 @@
 
 No importa si el cambio es pequeño: si la tarea terminó, se sube al remoto.
 
+## Regla: CHECKLIST OBLIGATORIA ANTES DE CADA TAREA
+
+**Al recibir cualquier petición (cualquier programa, tarea o cambio), ANTES de ejecutar nada, mostrar al usuario un checklist visible con los pasos que se van a seguir.**
+
+- Formato: lista numerada o con checkboxes `[ ]` / `[✓]` que se actualiza en tiempo real conforme se completa cada paso.
+- Actualizar el checklist con `[✓]` al terminar cada paso, y marcar `[ ]` o `[en progreso]` para los pendientes.
+- El checklist debe ser visible al inicio de la respuesta, no al final.
+- Aplica a todo: código, configuración, diagnósticos, consultas, despliegues... cualquier cosa que el usuario pida.
+
+No ejecutar pasos sin antes mostrar el plan. El checklist es la primera respuesta visible antes de cualquier acción.
+
 ## Definición de "tarea terminada"
 
 En este proyecto una tarea NO está terminada hasta que:
