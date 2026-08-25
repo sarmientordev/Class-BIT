@@ -7,13 +7,13 @@ const DAY_SHORT = ['LUN', 'MAR', 'MIÉ', 'JUE', 'VIE', 'SÁB', 'DOM'];
 
 // Paleta de colores para clases (tonos suaves tipo insignia, verde menta destacado)
 const PALETTE = [
-  '#E8837E', // coral
-  '#F2B877', // naranja
-  '#FFD666', // amarillo
-  '#7FD4C1', // turquesa
-  '#89C4F4', // celeste
+  '#E74C3C', // rojo coral
+  '#F39C12', // naranja
+  '#F1C40F', // amarillo oro
+  '#1ABC9C', // turquesa
+  '#3498DB', // azul
   '#E65100', // naranja fuerte
-  '#4DD09E', // verde menta
+  '#2ECC71', // verde
 ];
 
 let state = {
