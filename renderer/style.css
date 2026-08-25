@@ -767,14 +767,12 @@ html[data-theme="spider"] .w-chip { box-shadow: 2px 2px 0 0 rgba(13,33,55,0.55);
 html[data-theme="spider"] .festivo-item { border-width: 3px; box-shadow: 3px 3px 0 0 #0d2137; }
 html[data-theme="spider"] .festivos-title { color: #cc0000; text-shadow: 1px 1px 0 rgba(255,255,255,0.5); }
 
-/* Estado vacío: LOGO SPIDER-MAN 8-bit original del usuario (assets/spidey-logo.webp), marco arcade */
+/* Estado vacío: LOGO SPIDER-MAN 8-bit sin fondo (assets/spidey-logo.png), limpio y flotando */
 html[data-theme="spider"] .pixel-character { display: none; }
 html[data-theme="spider"] .spidey-logo {
   display: block;
-  width: 210px;
+  width: 230px;
   height: auto;
-  border: 3px solid #0d2137;
-  box-shadow: 3px 3px 0 0 rgba(13,33,55,0.35);
   image-rendering: pixelated;
   margin-bottom: 12px;
   animation: charBounce 1.5s steps(2) infinite;
@@ -802,18 +800,18 @@ html[data-theme="spider"] .btn-primary:hover {
 }
 html[data-theme="spider"] .btn-secondary { color: #ff4444; border-color: #ff4444; }
 html[data-theme="spider"] .btn-secondary:hover { background: rgba(255,68,68,0.12); }
-/* Botones de cabecera (🔔 ajustes, agregar) en VERDE LIMA #32CD32 */
+/* Botones de cabecera (🔔 ajustes, agregar) en VERDE MENTA vivo #4DD09E */
 html[data-theme="spider"] .icon-btn {
-  background: #32cd32;
-  border-color: #26a326;
+  background: #4dd09e;
+  border-color: #2fa87c;
   color: #0d2137;
-  box-shadow: 2px 2px 0 0 #1d7a1d;
+  box-shadow: 2px 2px 0 0 #1d7a57;
 }
 html[data-theme="spider"] .icon-btn:hover {
-  background: #5ee05e;
-  border-color: #1d7a1d;
+  background: #7ce0bd;
+  border-color: #1d7a57;
   color: #0d2137;
-  box-shadow: 2px 2px 0 0 #1d7a1d, 0 0 10px rgba(50,205,50,0.6);
+  box-shadow: 2px 2px 0 0 #1d7a57, 0 0 10px rgba(77,208,158,0.6);
 }
 
 /* ── Modales: ventanas navy con aro rojo ── */
