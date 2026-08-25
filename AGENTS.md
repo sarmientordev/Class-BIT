@@ -28,11 +28,23 @@ En este proyecto una tarea NO está terminada hasta que:
 
 1. Los archivos fuente están editados (`renderer/style.css`, `renderer/index.html`, `renderer/renderer.js`, etc.).
 2. El `app.asar` fue reempaquetado y desplegado a AMBAS instalaciones:
-   - `C:\Users\user\Desktop\Class BIT\resources\app.asar`
-   - `C:\Users\user\Desktop\Class-BIT\Class BIT\resources\app.asar`
+   - `C:\Users\user\Desktop\Class BIT\resources\app.asar` (instalación en uso del usuario)
+   - `C:\Users\user\Desktop\Class-BIT\Class BIT\resources\app.asar` (copia en el repo)
    - (empaquetar con staging en temp: main.js, preload.js, package.json, holidays.js, assets/, renderer/)
 3. La app fue reiniciada con los cambios (cerrar procesos "Class BIT" antes de sobrescribir el asar).
 4. Commit + push realizados según la regla principal.
+
+**IMPORTANTE: Actualizar SIEMPRE el app.asar en ambas ubicaciones.** Si solo se actualiza uno, el usuario puede instalar la versión vieja desde el repo y perder los cambios recientes.
+
+## Regla: USUARIO LIMPIO PARA OTROS INSTALADORES
+
+**El repo NO debe contener datos personales del usuario (Rafael) ni configuraciones específicas.**
+
+- NO commitear `schedule-data.json` (datos de clases del usuario).
+- NO commitear archivos de `%APPDATA%\class-bit\` (notified.json, Preferences, etc.).
+- El `app.asar` en el repo debe ser una versión "limpia" sin datos personales.
+- Si el usuario clona el repo e instala, debe empezar con una app vacía (sin clases predefinidas).
+- Los datos personales del usuario quedan SOLO en `%APPDATA%\class-bit\schedule-data.json` (fuera del repo).
 
 ## Estructura del proyecto
 
