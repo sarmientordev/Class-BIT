@@ -766,6 +766,10 @@ html[data-theme="spider"] .w-chip { box-shadow: 2px 2px 0 0 rgba(13,33,55,0.55);
 /* Festivos: tarjetas claras con día amarillo resaltado */
 html[data-theme="spider"] .festivo-item { border-width: 3px; box-shadow: 3px 3px 0 0 #0d2137; }
 html[data-theme="spider"] .festivos-title { color: #cc0000; text-shadow: 1px 1px 0 rgba(255,255,255,0.5); }
+/* Número del día en ROJO: el amarillo por defecto se pierde sobre la barra amarilla (--bg-card) */
+html[data-theme="spider"] .festivo-day { color: #cc0000; text-shadow: 1px 1px 0 rgba(255,255,255,0.55); }
+html[data-theme="spider"] .festivo-month { color: #0d2137; }
+html[data-theme="spider"] .festivo-name { color: #1a3a5c; }
 
 /* Estado vacío: LOGO SPIDER-MAN 8-bit sin fondo (assets/spidey-logo.png), limpio y flotando */
 html[data-theme="spider"] .pixel-character { display: none; }
@@ -1081,6 +1085,7 @@ body {
 .empty-state { display: none; flex-direction: column; align-items: center; justify-content: center; padding: 50px 20px; text-align: center; gap: 16px; }
 .empty-state.show { display: flex; }
 .pixel-character { width: 32px; height: 48px; margin: 0 auto 12px; position: relative; animation: charBounce 1.5s steps(2) infinite; }
+.spidey-logo { display: none; }
 @keyframes charBounce { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-8px);} }
 .char-head { width: 24px; height: 24px; background: #f4a0c8; margin: 0 auto; position: relative; box-shadow: -4px 4px 0 0 #f4a0c8, 4px 4px 0 0 #f4a0c8, 4px 8px 0 0 #1a0a2e, 12px 8px 0 0 #1a0a2e; }
 .char-body { width: 32px; height: 16px; background: var(--accent-purple); margin: 0 auto; box-shadow: inset 8px 0 0 0 var(--accent-magenta); }
