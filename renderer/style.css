@@ -767,31 +767,17 @@ html[data-theme="spider"] .w-chip { box-shadow: 2px 2px 0 0 rgba(13,33,55,0.55);
 html[data-theme="spider"] .festivo-item { border-width: 3px; box-shadow: 3px 3px 0 0 #0d2137; }
 html[data-theme="spider"] .festivos-title { color: #cc0000; text-shadow: 1px 1px 0 rgba(255,255,255,0.5); }
 
-/* Estado vacío: SPIDER-MAN pixel-art (máscara roja con ojos blancos, torso rojo, piernas navy, botas rojas) */
+/* Estado vacío: LOGO SPIDER-MAN 8-bit original del usuario (assets/spidey-logo.webp), marco arcade */
 html[data-theme="spider"] .pixel-character { display: none; }
-html[data-theme="spider"] .spidey { display: block; }
-html[data-theme="spider"] .spidey::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0;
-  width: 6px; height: 6px;
-  box-shadow:
-    /* cabeza roja */ #e03131 24px 0, #e03131 30px 0, #e03131 36px 0, #e03131 42px 0,
-    #e03131 18px 6px, #e03131 24px 6px, #e03131 30px 6px, #e03131 36px 6px, #e03131 42px 6px, #e03131 48px 6px,
-    /* ojos blancos */ #ffffff 24px 12px, #ffffff 42px 12px,
-    #e03131 12px 12px, #e03131 18px 12px, #e03131 30px 12px, #e03131 36px 12px, #e03131 48px 12px, #e03131 54px 12px,
-    #ffffff 18px 18px, #ffffff 24px 18px, #ffffff 42px 18px, #ffffff 48px 18px,
-    #e03131 12px 18px, #e03131 30px 18px, #e03131 36px 18px, #e03131 54px 18px,
-    #e03131 12px 24px, #e03131 18px 24px, #e03131 24px 24px, #e03131 30px 24px, #e03131 36px 24px, #e03131 42px 24px, #e03131 48px 24px, #e03131 54px 24px,
-    #e03131 18px 30px, #e03131 24px 30px, #e03131 30px 30px, #e03131 36px 30px, #e03131 42px 30px, #e03131 48px 30px,
-    /* hombros y brazos rojos */ #e03131 12px 36px, #e03131 18px 36px, #e03131 24px 36px, #e03131 30px 36px, #e03131 36px 36px, #e03131 42px 36px, #e03131 48px 36px, #e03131 54px 36px,
-    #e03131 6px 42px, #e03131 12px 42px, #e03131 18px 42px, #e03131 24px 42px, #e03131 30px 42px, #e03131 36px 42px, #e03131 42px 42px, #e03131 48px 42px, #e03131 54px 42px, #e03131 60px 42px,
-    #e03131 6px 48px, #e03131 12px 48px, #e03131 18px 48px, #e03131 24px 48px, #e03131 30px 48px, #e03131 36px 48px, #e03131 42px 48px, #e03131 48px 48px, #e03131 54px 48px, #e03131 60px 48px,
-    #e03131 12px 54px, #e03131 18px 54px, #e03131 24px 54px, #e03131 30px 54px, #e03131 36px 54px, #e03131 42px 54px, #e03131 48px 54px, #e03131 54px 54px,
-    /* piernas azul navy */ #1a3a5c 18px 60px, #1a3a5c 24px 60px, #1a3a5c 30px 60px, #1a3a5c 36px 60px, #1a3a5c 42px 60px, #1a3a5c 48px 60px,
-    #1a3a5c 18px 66px, #1a3a5c 24px 66px, #1a3a5c 30px 66px, #1a3a5c 42px 66px, #1a3a5c 48px 66px, #1a3a5c 54px 66px,
-    #1a3a5c 18px 72px, #1a3a5c 24px 72px, #1a3a5c 30px 72px, #1a3a5c 42px 72px, #1a3a5c 48px 72px, #1a3a5c 54px 72px,
-    /* botas rojas */ #e03131 18px 78px, #e03131 24px 78px, #e03131 30px 78px, #e03131 42px 78px, #e03131 48px 78px, #e03131 54px 78px;
+html[data-theme="spider"] .spidey-logo {
+  display: block;
+  width: 210px;
+  height: auto;
+  border: 3px solid #0d2137;
+  box-shadow: 3px 3px 0 0 rgba(13,33,55,0.35);
+  image-rendering: pixelated;
+  margin-bottom: 12px;
+  animation: charBounce 1.5s steps(2) infinite;
 }
 html[data-theme="spider"] .empty-sub { color: #1a3a5c; }
 
@@ -816,18 +802,18 @@ html[data-theme="spider"] .btn-primary:hover {
 }
 html[data-theme="spider"] .btn-secondary { color: #ff4444; border-color: #ff4444; }
 html[data-theme="spider"] .btn-secondary:hover { background: rgba(255,68,68,0.12); }
-/* Botones de cabecera (🔔 ajustes, agregar) en VERDE MENTA vivo #4DD09E */
+/* Botones de cabecera (🔔 ajustes, agregar) en VERDE LIMA #32CD32 */
 html[data-theme="spider"] .icon-btn {
-  background: #4dd09e;
-  border-color: #2fa87c;
+  background: #32cd32;
+  border-color: #26a326;
   color: #0d2137;
-  box-shadow: 2px 2px 0 0 #1d7a57;
+  box-shadow: 2px 2px 0 0 #1d7a1d;
 }
 html[data-theme="spider"] .icon-btn:hover {
-  background: #7ce0bd;
-  border-color: #1d7a57;
+  background: #5ee05e;
+  border-color: #1d7a1d;
   color: #0d2137;
-  box-shadow: 2px 2px 0 0 #1d7a57, 0 0 10px rgba(77,208,158,0.6);
+  box-shadow: 2px 2px 0 0 #1d7a1d, 0 0 10px rgba(50,205,50,0.6);
 }
 
 /* ── Modales: ventanas navy con aro rojo ── */
@@ -1097,7 +1083,6 @@ body {
 .empty-state { display: none; flex-direction: column; align-items: center; justify-content: center; padding: 50px 20px; text-align: center; gap: 16px; }
 .empty-state.show { display: flex; }
 .pixel-character { width: 32px; height: 48px; margin: 0 auto 12px; position: relative; animation: charBounce 1.5s steps(2) infinite; }
-.spidey { display: none; width: 72px; height: 84px; margin: 0 auto 12px; position: relative; animation: charBounce 1.5s steps(2) infinite; }
 @keyframes charBounce { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-8px);} }
 .char-head { width: 24px; height: 24px; background: #f4a0c8; margin: 0 auto; position: relative; box-shadow: -4px 4px 0 0 #f4a0c8, 4px 4px 0 0 #f4a0c8, 4px 8px 0 0 #1a0a2e, 12px 8px 0 0 #1a0a2e; }
 .char-body { width: 32px; height: 16px; background: var(--accent-purple); margin: 0 auto; box-shadow: inset 8px 0 0 0 var(--accent-magenta); }
