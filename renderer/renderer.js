@@ -186,7 +186,6 @@ function renderDayTabs() {
   document.querySelectorAll('.day-tab').forEach(tab => {
     const day = parseInt(tab.dataset.day);
     tab.classList.toggle('active', day === state.selectedDay);
-    tab.classList.toggle('today-tab', day === todayIdx);
     tab.setAttribute('aria-selected', day === state.selectedDay);
   });
 }
