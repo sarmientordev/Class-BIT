@@ -8,7 +8,7 @@
 2. Hacer `git add` SOLO de los archivos relacionados a la tarea.
 3. Commit con mensaje conciso que describa el cambio.
 4. **`git push origin main` es obligatorio al final de CADA tarea completada** — no dejar commits locales pendientes.
-5. **Reconstruir y subir el instalador `.exe`** a la release de GitHub con `npm run dist` y `gh release upload`, para que siempre esté disponible la última versión.
+5. **Actualizar el instalador `.exe`** en la release de GitHub con `npm run dist` y `gh release upload --clobber`. Solo crear una nueva release cuando haya un cambio significativo; para fixes menores, sobrescribir el .exe en la release existente.
 
 No importa si el cambio es pequeño: si la tarea terminó, se sube al remoto.
 
