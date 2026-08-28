@@ -1,19 +1,22 @@
-## 🕷️ Class BIT v1.0.2 — Tema Spider-Verse completo
+## 🕷️ Class BIT v1.0.3 — Sonido de notificación + Widgets de clase
 
-### Nuevas características visuales
+### 🔔 Nueva característica: Sonido de notificación
+- Class BIT reproduce un **chime retro pixel** cuando falta 1 hora para una clase, incluso si Windows o un juego en pantalla completa bloquean la notificación visual.
+- Ideal para cuando estás jugando y no ves las notificaciones externas.
+- Toggle en **AJUSTES → SONIDO DE NOTIFICACIÓN** para activar/desactivar.
 
-- **Logo Spider-Man pixel-art** en el estado vacío (cuando no hay clases cargadas). El logo se muestra SOLO en el tema Spider-Verse; los demás temas conservan su personaje pixel-art original.
-- **Paleta de colores mejorada**: 7 colores vividos y saturados para las clases (rojo, naranja, verde lima, cyan, rosa, amarillo, violeta). Sustituye la paleta anterior que era pastel y poco visible.
-- **Indicator del día actual**: punto pulsante en la pestaña del día de hoy (cyan en tema oscuro, rojo en tema Spider-Verse).
-- **Pestañas de días apagadas**: los días NO seleccionados se muestran con chip navy y texto ámbar, reduciendo distracciones visuales.
-- **Festivos en rojo**: los números de día en festivos ahora son rojos (#CC0000) para ser visibles sobre las barras amarillas de festivos (antes eran amarillos-invisibles).
+### ⏰ Nuevo widget: PRÓXIMA CLASE (header)
+- Cuenta regresiva **en vivo** (HH:MM:SS) hasta tu próxima clase, en la parte superior de la app.
+- Muestra el nombre y el salón de la clase.
+- Busca la próxima clase de **toda la semana** (hoy, mañana o el día que toque): el label cambia a PRÓXIMA / MAÑANA / día de la semana.
+- Se oculta automáticamente cuando hay una clase en curso.
 
-### Correcciones
+### 🟢 Nuevo widget: EN CURSO (barra de estado)
+- Badge parpadeante **EN CURSO** con el nombre de la clase actual y cuánto falta para que termine.
+- Aparece solo mientras hay una clase activa (ej. entre 18:45 y 21:45 los días de clase).
 
-- **Labels de días al editar clase**: corregido "X" → ahora muestra MIÉ para miércoles. Labels completos: LUN MAR MIÉ JUE VIE SÁB DOM.
-- **Botones del encabezado**: revertidos al color mint #4DD09E (correcto) desde #32CD32.
-- **Versión**: el instalador ahora refleja v1.0.2 con todos los cambios acumulados.
+### 🎨 Compatible con todos los temas
+Los widgets se adaptan automáticamente a cada tema (PIXEL, OSCURO, CLARO, CYBER FOREST, SYNTHWAVE CITY y SPIDER-VERSE) con variantes especiales para el tema Spider-Verse.
 
-### Actualización desde v1.0.1
-
-Descarga e instala **Class-BIT-Setup-1.0.2.exe**. Tus clases y configuraciones se conservan intactas.
+### Cómo actualizar
+Descarga **Class-BIT-Setup-1.0.3.exe**. Tus clases y configuraciones se conservan.

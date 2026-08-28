@@ -9,6 +9,7 @@
 3. Commit con mensaje conciso que describa el cambio.
 4. **`git push origin main` es obligatorio al final de CADA tarea completada** — no dejar commits locales pendientes.
 5. **Actualizar el instalador `.exe`** en la release de GitHub con `npm run dist` y `gh release upload --clobber`. Solo crear una nueva release cuando haya un cambio significativo; para fixes menores, sobrescribir el .exe en la release existente.
+6. **Documentar el cambio en la release de GitHub**: después de pushear y subir el .exe, ACTUALIZAR las notas de la release (`gh release edit <tag> --notes-file <archivo>`) para que lo que se acaba de subir quede documentado. No dejar que la release quede desactualizada respecto al último commit.
 
 No importa si el cambio es pequeño: si la tarea terminó, se sube al remoto.
 
