@@ -29,7 +29,7 @@ function getNotifiedPath() {
 const DEFAULT_DATA = {
   version: 2,
   classes: [],
-  settings: { showClock: true, use24h: false, theme: 'pixel', soundEnabled: true },
+  settings: { showClock: true, use24h: false, theme: 'pixel', soundEnabled: true, soundChoice: 'retro', remind15: true, remind5: true, remindTomorrow: true },
 };
 
 function readData() {
@@ -134,6 +134,8 @@ function checkClassNotifications() {
   const today = dateKey(now);
   const todayDow = dayOfWeekMon0(now);
   const nowMin = now.getHours() * 60 + now.getMinutes();
+  const allow15 = !(data.settings && data.settings.remind15 === false);
+  const allow5 = !(data.settings && data.settings.remind5 === false);
 
   data.classes.forEach(cls => {
     if (!cls || !cls.days || !Array.isArray(cls.days)) return;
@@ -142,17 +144,44 @@ function checkClassNotifications() {
     const startMin = minutesOf(cls.startTime);
     if (isNaN(startMin)) return;
 
-    // Ventana: notifica cuando falten entre 45 y 70 minutos para la clase
     const minutesLeft = startMin - nowMin;
+    const use24h = data.settings && data.settings.use24h;
+    const timeStr = use24h ? formatTime24(startMin) : formatTime12(startMin);
+    const prof = cls.teacher ? `\nProfesor: ${cls.teacher}` : '';
+
+    // Ventana: notifica cuando falten entre 45 y 70 minutos para la clase
     if (minutesLeft >= 45 && minutesLeft <= 70) {
       const key = `${cls.id}:${today}:start`;
       if (!notified[key]) {
-        const data2 = readData();
-        const use24h = data2.settings && data2.settings.use24h;
-        const timeStr = use24h ? formatTime24(startMin) : formatTime12(startMin);
         sendNotification(
           `⏰ ${cls.name} comienza en 1 hora`,
-          `Tu clase de ${cls.name} inicia a las ${timeStr}${cls.room ? ` · ${cls.room}` : ''}${cls.teacher ? `\nProfesor: ${cls.teacher}` : ''}`
+          `Tu clase de ${cls.name} inicia a las ${timeStr}${cls.room ? ` · ${cls.room}` : ''}${prof}`
+        );
+        notified[key] = true;
+        writeNotified(notified);
+      }
+    }
+
+    // Aviso más cercano: 15 minutos antes
+    if (allow15 && minutesLeft >= 15 && minutesLeft <= 19) {
+      const key = `${cls.id}:${today}:15m`;
+      if (!notified[key]) {
+        sendNotification(
+          `⏰ ${cls.name} en 15 minutos`,
+          `Empieza a las ${timeStr}${cls.room ? ` · ${cls.room}` : ''}${prof}`
+        );
+        notified[key] = true;
+        writeNotified(notified);
+      }
+    }
+
+    // Aviso más cercano: 5 minutos antes
+    if (allow5 && minutesLeft >= 5 && minutesLeft <= 8) {
+      const key = `${cls.id}:${today}:5m`;
+      if (!notified[key]) {
+        sendNotification(
+          `⏰ ${cls.name} en 5 minutos`,
+          `¡Ya casi! Empieza a las ${timeStr}${cls.room ? ` · ${cls.room}` : ''}`
         );
         notified[key] = true;
         writeNotified(notified);
@@ -197,10 +226,87 @@ function checkHolidayNotifications() {
   }
 }
 
+// Aviso diario de las clases de mañana (a las 20:00)
+function checkTomorrowClasses() {
+  const data = readData();
+  if (!data.classes || data.classes.length === 0) return;
+  if (data.settings && data.settings.remindTomorrow === false) return;
+
+  const now = new Date();
+  if (now.getHours() !== 20) return;
+
+  const notified = readNotified();
+  const key = `tomorrow:${dateKey(now)}:classes`;
+  if (notified[key]) return;
+
+  // Mañana (día siguiente)
+  const tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+  const tomorrowDow = dayOfWeekMon0(tomorrow);
+  const tomorrowClasses = data.classes
+    .filter(c => c.days && Array.isArray(c.days) && c.days.includes(tomorrowDow))
+    .sort((a, b) => a.startTime.localeCompare(b.startTime));
+
+  if (tomorrowClasses.length === 0) return;
+
+  const use24h = data.settings && data.settings.use24h;
+  const first = tomorrowClasses[0];
+  const timeStr = use24h ? formatTime24(minutesOf(first.startTime)) : formatTime12(minutesOf(first.startTime));
+  sendNotification(
+    `🗓 Mañana tienes ${tomorrowClasses.length} clase${tomorrowClasses.length !== 1 ? 's' : ''}`,
+    `${first.name} a las ${timeStr}${first.room ? ` · ${first.room}` : ''} ... y ${tomorrowClasses.length - 1 > 0 ? `${tomorrowClasses.length - 1} más` : ''}`
+  );
+  notified[key] = true;
+  writeNotified(notified);
+}
+
+// Actualiza el tooltip de la bandeja con la próxima clase
+function updateTrayTooltip() {
+  if (!tray) return;
+  const data = readData();
+  if (!data.classes || data.classes.length === 0) {
+    tray.setToolTip('Class BIT — Sin clases registradas');
+    return;
+  }
+  const now = new Date();
+  const nowMin = now.getHours() * 60 + now.getMinutes();
+  const todayDow = dayOfWeekMon0(now);
+
+  // Clase en curso
+  const cur = data.classes.find(c => c.days && c.days.includes(todayDow) &&
+    nowMin >= minutesOf(c.startTime) && nowMin < minutesOf(c.endTime));
+  if (cur) {
+    const use24h = data.settings && data.settings.use24h;
+    const endStr = use24h ? formatTime24(minutesOf(cur.endTime)) : formatTime12(minutesOf(cur.endTime));
+    tray.setToolTip(`Class BIT — EN CURSO: ${cur.name} (hasta ${endStr})`);
+    return;
+  }
+
+  // Próxima clase de la semana
+  for (let offset = 0; offset < 8; offset++) {
+    const candidate = new Date(now.getFullYear(), now.getMonth(), now.getDate() + offset);
+    const dow = dayOfWeekMon0(candidate);
+    const minStart = offset === 0 ? nowMin + 1 : -1;
+    const matches = data.classes
+      .filter(c => c.days && c.days.includes(dow) && minutesOf(c.startTime) > minStart)
+      .sort((a, b) => a.startTime.localeCompare(b.startTime));
+    if (matches.length) {
+      const cls = matches[0];
+      const use24h = data.settings && data.settings.use24h;
+      const timeStr = use24h ? formatTime24(minutesOf(cls.startTime)) : formatTime12(minutesOf(cls.startTime));
+      const when = offset === 0 ? 'HOY' : offset === 1 ? 'MAÑANA' : candidate.toLocaleDateString('es-ES', { weekday: 'long' });
+      tray.setToolTip(`Class BIT — ${when}: ${cls.name} ${timeStr}`);
+      return;
+    }
+  }
+  tray.setToolTip('Class BIT — Horario');
+}
+
 function runScheduler() {
   try {
     checkClassNotifications();
     checkHolidayNotifications();
+    checkTomorrowClasses();
+    updateTrayTooltip();
   } catch (err) {
     console.error('Scheduler error:', err);
   }

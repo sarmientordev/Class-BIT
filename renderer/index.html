@@ -39,11 +39,14 @@
       </div>
       <div class="holiday-banner" id="holiday-banner" style="display:none"></div>
       <div class="next-class-header" id="next-class-header">
-        <span class="nch-icon">⏰</span>
-        <span class="nch-label" id="nch-label">PRÓXIMA</span>
-        <span class="nch-name" id="nch-name">—</span>
-        <span class="nch-timer" id="nch-timer">--:--:--</span>
-        <span class="nch-room" id="nch-room"></span>
+        <div class="nch-top">
+          <span class="nch-label" id="nch-label">PRÓXIMA</span>
+          <span class="nch-name" id="nch-name">—</span>
+        </div>
+        <div class="nch-bottom">
+          <span class="nch-timer" id="nch-timer">--:--:--</span>
+          <span class="nch-room" id="nch-room"></span>
+        </div>
       </div>
       <div class="header-actions">
         <span class="live-clock" id="live-clock" style="display:none"></span>
@@ -109,6 +112,13 @@
       <div class="festivos-title">🗓 PRÓXIMOS FESTIVOS EN COLOMBIA</div>
       <div class="festivos-list" id="festivos-list"></div>
     </div>
+
+    <!-- ESTADÍSTICAS -->
+    <div class="stats-panel" id="stats-panel">
+      <div class="stats-title">📊 ESTADÍSTICAS DE TU HORARIO</div>
+      <div class="stats-grid" id="stats-grid"></div>
+      <div class="stats-days" id="stats-days"></div>
+    </div>
   </main>
 
   <!-- BOTTOM NAV -->
@@ -121,6 +131,9 @@
     </button>
     <button class="nav-item" data-view="festivos" aria-label="Festivos" id="nav-festivos">
       <span class="nav-icon">🎉</span><span class="nav-label">FESTIVOS</span>
+    </button>
+    <button class="nav-item" data-view="stats" aria-label="Estadísticas" id="nav-stats">
+      <span class="nav-icon">📊</span><span class="nav-label">STATS</span>
     </button>
   </nav>
 </div>
@@ -206,6 +219,29 @@
         <div class="toggle-row">
           <span class="toggle-desc">Suena incluso si Windows bloquea la notificación (ideal jugando 🎮)</span>
           <button class="toggle-btn" id="toggle-sound" role="switch" aria-checked="false"></button>
+        </div>
+        <select class="pixel-input" id="select-sound" style="margin-top:8px">
+          <option value="retro">RETRO PIXEL 🔔</option>
+          <option value="beep">BEEP CLÁSICO 🖥</option>
+          <option value="coin">MONEDA 8-BIT 🪙</option>
+          <option value="alert">ALERTA DOBLE ⚠</option>
+          <option value="bell">CAMPANA SUAVE 🎐</option>
+          <option value="victory">VICTORIA 🏆</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="pixel-label">RECORDATORIOS CERCANOS</label>
+        <div class="toggle-row">
+          <span class="toggle-desc">Avisar 15 minutos antes de la clase</span>
+          <button class="toggle-btn" id="toggle-remind15" role="switch" aria-checked="false"></button>
+        </div>
+        <div class="toggle-row">
+          <span class="toggle-desc">Avisar 5 minutos antes de la clase</span>
+          <button class="toggle-btn" id="toggle-remind5" role="switch" aria-checked="false"></button>
+        </div>
+        <div class="toggle-row">
+          <span class="toggle-desc">Avisar cada día las clases de mañana (20:00)</span>
+          <button class="toggle-btn" id="toggle-remind-tomorrow" role="switch" aria-checked="false"></button>
         </div>
       </div>
       <div class="form-group">

@@ -702,7 +702,6 @@ html[data-theme="spider"] .next-class-header {
   box-shadow: 3px 3px 0 0 #cc0000;
 }
 html[data-theme="spider"] .nch-label { color: #4fc3f7; }
-html[data-theme="spider"] .nch-icon { color: #ffd600; filter: drop-shadow(0 0 5px #ffd600); }
 html[data-theme="spider"] .nch-name { color: #f5f9ff; }
 html[data-theme="spider"] .nch-timer {
   color: #ff4444; text-shadow: 0 0 8px rgba(255,68,68,0.8);
@@ -717,6 +716,8 @@ html[data-theme="spider"] .ncs-badge {
 html[data-theme="spider"] .ncs-badge .rec-dot { background: #ffd600; box-shadow: 0 0 8px #ffd600; }
 html[data-theme="spider"] .ncs-name { color: #f5f9ff; }
 html[data-theme="spider"] .ncs-ends { color: #ff9d3c; }
+html[data-theme="spider"] .ncs-progress { border-color: #2a5a8c; }
+html[data-theme="spider"] .ncs-progress-fill { background: linear-gradient(90deg, #e65100, #ff9d3c); }
 
 /* ── Tarjetas claras con borde navy y sombra dura 3px (class-card del concepto) ── */
 html[data-theme="spider"] .class-card {
@@ -1081,19 +1082,22 @@ body {
 /* ═══ WIDGET PRÓXIMA CLASE (HEADER) ═══ */
 .next-class-header {
   display: none;
+  flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 5px;
   font-family: var(--font-vt); font-size: 17px;
   background: var(--bg-panel);
   border: var(--px) solid var(--border-pixel);
-  padding: 5px 14px;
+  padding: 6px 16px;
   box-shadow: var(--px) var(--px) 0 0 rgba(0,0,0,0.4), inset -2px -2px 0 0 rgba(0,0,0,0.3);
   color: var(--text-secondary);
+  margin: 0 auto;
 }
 .next-class-header.show { display: flex; }
-.nch-icon { color: var(--accent-yellow); filter: drop-shadow(0 0 4px var(--accent-yellow)); }
-.nch-label { color: var(--accent-cyan); letter-spacing: 1px; }
-.nch-name { color: var(--text-primary); font-weight: bold; max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.nch-top { display: flex; align-items: baseline; gap: 8px; }
+.nch-bottom { display: flex; align-items: center; gap: 8px; justify-content: center; }
+.nch-label { color: var(--accent-cyan); letter-spacing: 1px; font-size: 15px; }
+.nch-name { color: var(--text-primary); font-weight: bold; font-size: 18px; max-width: 320px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .nch-timer {
   font-family: var(--font-pixel); font-size: 12px;
   color: var(--accent-cyan); text-shadow: 0 0 8px var(--accent-cyan);
@@ -1131,6 +1135,8 @@ body {
 }
 .ncs-name { color: var(--text-primary); font-weight: bold; max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .ncs-ends { color: var(--accent-pink); }
+.ncs-progress { width: 70px; height: 10px; background: var(--bg-panel); border: var(--px) solid var(--border-pixel); position: relative; overflow: hidden; display: inline-block; box-shadow: inset -1px -1px 0 0 rgba(0,0,0,0.3); }
+.ncs-progress-fill { display: block; height: 100%; background: linear-gradient(90deg, var(--accent-cyan), var(--accent-magenta)); transition: width 1s steps(8); }
 
 /* ═══ CLASS CARDS ═══ */
 .schedule-list { display: flex; flex-direction: column; gap: 10px; }
@@ -1205,6 +1211,31 @@ body {
 .festivo-day { font-family: var(--font-pixel); font-size: 18px; color: var(--accent-yellow); }
 .festivo-month { font-family: var(--font-vt); font-size: 16px; color: var(--text-secondary); text-transform: capitalize; }
 .festivo-name { font-family: var(--font-pixel); font-size: 7px; color: var(--text-primary); }
+
+/* ═══ ESTADÍSTICAS ═══ */
+.stats-panel { display: none; }
+.stats-title { font-family: var(--font-pixel); font-size: 9px; color: var(--accent-pink); margin: 6px 0 14px; }
+.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 16px; }
+.stat-card { background: var(--bg-card); border: var(--px) solid var(--border-pixel); text-align: center; padding: 14px 8px; box-shadow: 3px 3px 0 0 rgba(0,0,0,0.4), inset -2px -2px 0 0 rgba(0,0,0,0.3); }
+.stat-card .stat-value { font-family: var(--font-pixel); font-size: 18px; color: var(--accent-cyan); text-shadow: 0 0 10px var(--shadow-cyan); }
+.stat-card .stat-label { font-family: var(--font-vt); font-size: 14px; color: var(--text-secondary); margin-top: 6px; letter-spacing: 1px; }
+.stats-days { display: flex; flex-direction: column; gap: 8px; }
+.stats-day-row { background: var(--bg-card); border: var(--px) solid var(--border-pixel); padding: 10px 16px; display: flex; align-items: center; gap: 14px; }
+.stats-day-name { font-family: var(--font-pixel); font-size: 7px; color: var(--accent-pink); min-width: 48px; }
+.stats-day-bar { flex: 1; height: 16px; background: var(--bg-panel); border: var(--px) solid var(--border-pixel); overflow: hidden; position: relative; }
+.stats-day-fill { height: 100%; background: linear-gradient(90deg, var(--accent-magenta), var(--accent-pink)); box-shadow: 0 0 8px var(--shadow-glow); transition: width 0.4s steps(6); }
+.stats-day-count { font-family: var(--font-vt); font-size: 15px; color: var(--text-primary); min-width: 90px; text-align: right; }
+.stats-top { margin-top: 14px; }
+.stats-top-title { font-family: var(--font-pixel); font-size: 7px; color: var(--accent-yellow); margin-bottom: 8px; }
+.stats-top-item { font-family: var(--font-vt); font-size: 15px; color: var(--text-secondary); padding: 3px 0; }
+.stats-top-item b { color: var(--text-primary); }
+
+/* Variantes spider para stats */
+html[data-theme="spider"] .stat-card { border-width: 3px; box-shadow: 3px 3px 0 0 #0d2137; }
+html[data-theme="spider"] .stats-title { color: #cc0000; text-shadow: 1px 1px 0 rgba(255,255,255,0.5); }
+html[data-theme="spider"] .stats-day-row { border-color: #2a5a8c; }
+html[data-theme="spider"] .stats-day-fill { background: linear-gradient(90deg, #e65100, #ff9d3c); }
+html[data-theme="spider"] .stat-card .stat-value { color: #ff4444; text-shadow: 0 0 10px rgba(255,68,68,0.5); }
 
 /* ═══ BOTTOM NAV ═══ */
 .bottom-nav { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 1200px; background: var(--bg-panel); border-top: 2px solid var(--accent-magenta); display: flex; z-index: 100; box-shadow: 0 -4px 20px rgba(192,23,108,0.3); }

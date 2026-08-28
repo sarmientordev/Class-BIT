@@ -1,22 +1,33 @@
-## 🕷️ Class BIT v1.0.3 — Sonido de notificación + Widgets de clase
+## 🕷️ Class BIT v1.1.0 — Estadísticas, sonidos personalizables y recordatorios cercanos
 
-### 🔔 Nueva característica: Sonido de notificación
-- Class BIT reproduce un **chime retro pixel** cuando falta 1 hora para una clase, incluso si Windows o un juego en pantalla completa bloquean la notificación visual.
-- Ideal para cuando estás jugando y no ves las notificaciones externas.
-- Toggle en **AJUSTES → SONIDO DE NOTIFICACIÓN** para activar/desactivar.
+### 📊 Nueva vista: ESTADÍSTICAS
+- Panel con tu resumen: **horas de clase por semana**, número de materias, clases de hoy y la materia más cargada.
+- Barras visuales de carga por cada día de la semana.
+- Accede desde la pestaña **STATS** en la barra inferior.
 
-### ⏰ Nuevo widget: PRÓXIMA CLASE (header)
-- Cuenta regresiva **en vivo** (HH:MM:SS) hasta tu próxima clase, en la parte superior de la app.
-- Muestra el nombre y el salón de la clase.
-- Busca la próxima clase de **toda la semana** (hoy, mañana o el día que toque): el label cambia a PRÓXIMA / MAÑANA / día de la semana.
-- Se oculta automáticamente cuando hay una clase en curso.
+### 🔔 Sonido personalizable (6 tonos)
+- Ahora puedes elegir entre **6 sonidos** en AJUSTES → SONIDO DE NOTIFICACIÓN: RETRO PIXEL, BEEP CLÁSICO 🖥, MONEDA 8-BIT 🪙, ALERTA DOBLE ⚠, CAMPANA SUAVE 🎐 y VICTORIA 🏆.
+- Se previsualiza al seleccionar. Sigue sonando aunque Windows o un juego bloqueen las notificaciones visuales.
 
-### 🟢 Nuevo widget: EN CURSO (barra de estado)
-- Badge parpadeante **EN CURSO** con el nombre de la clase actual y cuánto falta para que termine.
-- Aparece solo mientras hay una clase activa (ej. entre 18:45 y 21:45 los días de clase).
+### ⏱ Recordatorios más cercanos
+- Nuevos avisos **15 y 5 minutos antes** de cada clase (además del de 1 hora).
+- Se pueden activar/desactivar por separado en AJUSTES → RECORDATORIOS CERCANOS.
 
-### 🎨 Compatible con todos los temas
-Los widgets se adaptan automáticamente a cada tema (PIXEL, OSCURO, CLARO, CYBER FOREST, SYNTHWAVE CITY y SPIDER-VERSE) con variantes especiales para el tema Spider-Verse.
+### 🗓 Aviso diario de las clases de mañana
+- Todos los días a las **20:00** te avisa qué clases tienes mañana y a qué hora empieza la primera.
+- Configurable en AJUSTES.
+
+### 📈 Barra de progreso en la clase EN CURSO
+- El widget EN CURSO ahora muestra una **barra de progreso** visual con cuánto % de la clase ya transcurrió.
+
+### 🖥 Tooltip en la bandeja del sistema
+- Al pasar el mouse sobre el ícono de Class BIT en la bandeja, verás la clase **EN CURSO** o la **próxima clase** (HOY / MAÑANA / día) con su hora, sin abrir la app.
+
+### 🎨 Widget del header corrigido
+- El widget PRÓXIMA CLASE se reorganizó en **2 líneas**: nombre arriba, reloj + salón centrados abajo, todo centrado horizontalmente.
+
+### 💬 Compatibilidad
+Todas las novedades se adaptan a cada tema (PIXEL, OSCURO, CLARO, CYBER FOREST, SYNTHWAVE CITY y SPIDER-VERSE).
 
 ### Cómo actualizar
-Descarga **Class-BIT-Setup-1.0.3.exe**. Tus clases y configuraciones se conservan.
+Descarga **Class-BIT-Setup-1.1.0.exe**. Tus clases y configuraciones se conservan.

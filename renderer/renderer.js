@@ -22,7 +22,7 @@ let state = {
   selectedColor: PALETTE[0],
   editingId: null,
   currentView: 'schedule', // schedule | week | festivos
-  settings: { showClock: true, use24h: false, soundEnabled: true },
+  settings: { showClock: true, use24h: false, soundEnabled: true, soundChoice: 'retro', remind15: true, remind5: true, remindTomorrow: true },
 };
 
 // ── UTIL ─────────────────────────────────────────
@@ -248,11 +248,72 @@ function renderFestivos() {
   });
 }
 
+// ── RENDER: ESTADÍSTICAS ────────────────────────
+function renderStats() {
+  const grid = document.getElementById('stats-grid');
+  const days = document.getElementById('stats-days');
+  const classes = state.classes || [];
+  if (!grid || !days) return;
+
+  if (classes.length === 0) {
+    grid.innerHTML = '<div class="stats-empty">Aún no tienes clases registradas. Agrega una para ver tus estadísticas 🎮</div>';
+    days.innerHTML = '';
+    return;
+  }
+
+  // Horas de clase por semana
+  let totalHours = 0;
+  const perDay = Array(7).fill(0);
+  const perSubj = {};
+  classes.forEach(c => {
+    let dur = (minutesOf(c.endTime) - minutesOf(c.startTime)) / 60;
+    const howMany = c.days.length;
+    totalHours += dur * howMany;
+    c.days.forEach(d => { perDay[d] += dur; });
+    const key = (c.name || 'S/D').toUpperCase();
+    perSubj[key] = (perSubj[key] || 0) + dur * howMany;
+  });
+
+  const now = new Date();
+  const todayIdx = dayOfWeekMon0(now);
+  const todayCount = classes.filter(c => c.days.includes(todayIdx)).length;
+
+  const topSubj = Object.entries(perSubj).sort((a, b) => b[1] - a[1]);
+  const mostLoaded = topSubj.length ? topSubj[0] : null;
+
+  const card = (value, label) => `
+    <div class="stat-card">
+      <div class="stat-value">${value}</div>
+      <div class="stat-label">${label}</div>
+    </div>`;
+  grid.innerHTML = card(totalHours.toFixed(1).replace('.', ','), 'HORAS/SEMANA') +
+    card(classes.length, 'MATERIAS') +
+    card(todayCount, 'HOY') +
+    card(mostLoaded ? mostLoaded[1].toFixed(1).replace('.', ',') + 'h' : '—', 'MÁS CARGADA');
+
+  // Barras por día (compartida como % de horas)
+  const maxDay = Math.max(...perDay, 1);
+  days.innerHTML = DAY_SHORT.map((name, i) => {
+    const hours = perDay[i];
+    const pct = Math.round((hours / maxDay) * 100);
+    return `
+      <div class="stats-day-row">
+        <span class="stats-day-name">${name}</span>
+        <div class="stats-day-bar"><div class="stats-day-fill" style="width:${pct}%"></div></div>
+        <span class="stats-day-count">${hours > 0 ? hours.toFixed(1).replace('.', ',') + 'h' : '—'}</span>
+      </div>`;
+  }).join('');
+
+  // Materia más cargada
+  const topEl = document.getElementById('stats-top');
+}
+
 // ── VIEWS ────────────────────────────────────────
 function showScheduleView() {
   state.currentView = 'schedule';
   document.getElementById('week-grid').style.display = 'none';
   document.getElementById('festivos-panel').style.display = 'none';
+  document.getElementById('stats-panel').style.display = 'none';
   document.getElementById('schedule-list').style.display = 'flex';
   document.getElementById('empty-state').classList.toggle('show', state.classes.filter(c => c.days.includes(state.selectedDay)).length === 0);
   renderSchedule();
@@ -263,6 +324,7 @@ function showWeekView() {
   document.getElementById('schedule-list').style.display = 'none';
   document.getElementById('empty-state').classList.remove('show');
   document.getElementById('festivos-panel').style.display = 'none';
+  document.getElementById('stats-panel').style.display = 'none';
   document.getElementById('week-grid').style.display = 'grid';
   renderWeekGrid();
 }
@@ -272,8 +334,19 @@ function showFestivosView() {
   document.getElementById('schedule-list').style.display = 'none';
   document.getElementById('empty-state').classList.remove('show');
   document.getElementById('week-grid').style.display = 'none';
+  document.getElementById('stats-panel').style.display = 'none';
   document.getElementById('festivos-panel').style.display = 'block';
   renderFestivos();
+}
+
+function showStatsView() {
+  state.currentView = 'stats';
+  document.getElementById('schedule-list').style.display = 'none';
+  document.getElementById('empty-state').classList.remove('show');
+  document.getElementById('week-grid').style.display = 'none';
+  document.getElementById('festivos-panel').style.display = 'none';
+  document.getElementById('stats-panel').style.display = 'block';
+  renderStats();
 }
 
 function setActiveNav(view) {
@@ -468,7 +541,7 @@ function loadData() {
 function loadSettings() {
   if (!window.scheduleAPI) return Promise.resolve();
   return window.scheduleAPI.loadSettings().then(s => {
-    state.settings = Object.assign({ showClock: true, use24h: false, theme: 'pixel', soundEnabled: true }, s || {});
+    state.settings = Object.assign({ showClock: true, use24h: false, theme: 'pixel', soundEnabled: true, soundChoice: 'retro', remind15: true, remind5: true, remindTomorrow: true }, s || {});
     state.settings.custom = Object.assign(customDefaults(), (state.settings.custom || {}));
     applySettingsUI();
   });
@@ -490,6 +563,7 @@ function applySettingsUI() {
   renderDayTabs();
   if (state.currentView === 'week') renderWeekGrid();
   else if (state.currentView === 'festivos') renderFestivos();
+  else if (state.currentView === 'stats') renderStats();
   else showScheduleView();
 }
 
@@ -745,6 +819,19 @@ function openSettings() {
   document.getElementById('toggle-24h').classList.toggle('on', state.settings.use24h);
   document.getElementById('toggle-sound').setAttribute('aria-checked', state.settings.soundEnabled !== false);
   document.getElementById('toggle-sound').classList.toggle('on', state.settings.soundEnabled !== false);
+  document.getElementById('select-sound').value = state.settings.soundChoice || 'retro';
+  if (document.getElementById('toggle-remind15')) {
+    document.getElementById('toggle-remind15').setAttribute('aria-checked', state.settings.remind15 !== false);
+    document.getElementById('toggle-remind15').classList.toggle('on', state.settings.remind15 !== false);
+  }
+  if (document.getElementById('toggle-remind5')) {
+    document.getElementById('toggle-remind5').setAttribute('aria-checked', state.settings.remind5 !== false);
+    document.getElementById('toggle-remind5').classList.toggle('on', state.settings.remind5 !== false);
+  }
+  if (document.getElementById('toggle-remind-tomorrow')) {
+    document.getElementById('toggle-remind-tomorrow').setAttribute('aria-checked', state.settings.remindTomorrow !== false);
+    document.getElementById('toggle-remind-tomorrow').classList.toggle('on', state.settings.remindTomorrow !== false);
+  }
   updateThemePicker();
   document.getElementById('settings-overlay').classList.add('open');
 }
@@ -783,6 +870,31 @@ function showToast(msg) {
 // ── SONIDO DE NOTIFICACIÓN ───────────────────────
 let audioCtx = null;
 
+// Genera un "beep" simple
+function beep(freq, t, dur, type, vol) {
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  osc.type = type || 'square';
+  osc.frequency.value = freq;
+  gain.gain.setValueAtTime(0.0001, t);
+  gain.gain.exponentialRampToValueAtTime(vol || 0.2, t + 0.01);
+  gain.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+  osc.connect(gain);
+  gain.connect(audioCtx.destination);
+  osc.start(t);
+  osc.stop(t + dur + 0.05);
+}
+
+// Tonos disponibles (la clave es el valor del selector AJUSTES)
+const SOUND_CHOICES = {
+  retro: { label: 'RETRO PIXEL' },
+  beep: { label: 'BEEP CLÁSICO' },
+  coin: { label: 'MONEDA 8-BIT' },
+  alert: { label: 'ALERTA DOBLE' },
+  bell: { label: 'CAMPANA SUAVE' },
+  victory: { label: 'VICTORIA' },
+};
+
 // Chime retro pixel (E5 → A5 → C#6) sintetizado sin archivos externos
 function playNotificationSound() {
   try {
@@ -791,20 +903,37 @@ function playNotificationSound() {
     }
     if (audioCtx.state === 'suspended') audioCtx.resume();
     const now = audioCtx.currentTime;
-    [659.25, 880.0, 1108.73].forEach((freq, i) => {
-      const t = now + i * 0.09;
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      osc.type = 'square';
-      osc.frequency.value = freq;
-      gain.gain.setValueAtTime(0.0001, t);
-      gain.gain.exponentialRampToValueAtTime(0.2, t + 0.01);
-      gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.18);
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-      osc.start(t);
-      osc.stop(t + 0.2);
-    });
+    const choice = state.settings.soundChoice || 'retro';
+
+    switch (choice) {
+      case 'beep':
+        beep(880, now, 0.25, 'square', 0.3);
+        break;
+      case 'coin':
+        beep(988, now, 0.08, 'square', 0.25);
+        beep(1319, now + 0.09, 0.18, 'square', 0.25);
+        break;
+      case 'alert':
+        beep(600, now, 0.2, 'square', 0.3);
+        beep(720, now + 0.22, 0.2, 'square', 0.3);
+        beep(600, now + 0.44, 0.25, 'square', 0.3);
+        break;
+      case 'bell':
+        beep(987.77, now, 0.5, 'triangle', 0.28);
+        beep(987.77, now + 0.3, 0.55, 'triangle', 0.22);
+        break;
+      case 'victory':
+        [523.25, 659.25, 783.99, 1046.5].forEach((freq, i) => {
+          beep(freq, now + i * 0.12, 0.18, 'square', 0.24);
+        });
+        break;
+      case 'retro':
+      default:
+        [659.25, 880.0, 1108.73].forEach((freq, i) => {
+          beep(freq, now + i * 0.09, 0.18, 'square', 0.2);
+        });
+        break;
+    }
   } catch (_) {}
 }
 
@@ -861,6 +990,9 @@ function updateNextClassWidget() {
   // Status bar: clase EN CURSO
   if (cur) {
     const remainingMin = minutesOf(cur.endTime) - nowMin;
+    const startedMin = minutesOf(cur.startTime);
+    const totalMin = minutesOf(cur.endTime) - startedMin;
+    const pct = totalMin > 0 ? Math.min(100, Math.max(0, ((nowMin - startedMin) / totalMin) * 100)) : 0;
     ncs.innerHTML = '';
     const badge = document.createElement('span');
     badge.className = 'ncs-badge';
@@ -877,6 +1009,13 @@ function updateNextClassWidget() {
     ncs.appendChild(badge);
     ncs.appendChild(name);
     ncs.appendChild(ends);
+    const bar = document.createElement('span');
+    bar.className = 'ncs-progress';
+    const fill = document.createElement('span');
+    fill.className = 'ncs-progress-fill';
+    fill.style.width = `${pct}%`;
+    bar.appendChild(fill);
+    ncs.appendChild(bar);
     ncs.classList.add('show');
   } else {
     ncs.classList.remove('show');
@@ -923,6 +1062,7 @@ function refreshAll() {
   renderDayTabs();
   if (state.currentView === 'week') renderWeekGrid();
   else if (state.currentView === 'festivos') renderFestivos();
+  else if (state.currentView === 'stats') renderStats();
   else showScheduleView();
   renderCurrentDate();
 }
@@ -999,6 +1139,37 @@ function bindEvents() {
     if (state.settings.soundEnabled) playNotificationSound();
   });
 
+  document.getElementById('select-sound').addEventListener('change', (e) => {
+    state.settings.soundChoice = e.target.value;
+    saveSettings();
+    if (state.settings.soundEnabled) playNotificationSound();
+  });
+
+  if (document.getElementById('toggle-remind15')) {
+    document.getElementById('toggle-remind15').addEventListener('click', () => {
+      state.settings.remind15 = state.settings.remind15 === false;
+      saveSettings();
+      applySettingsUI();
+      openSettings();
+    });
+  }
+  if (document.getElementById('toggle-remind5')) {
+    document.getElementById('toggle-remind5').addEventListener('click', () => {
+      state.settings.remind5 = state.settings.remind5 === false;
+      saveSettings();
+      applySettingsUI();
+      openSettings();
+    });
+  }
+  if (document.getElementById('toggle-remind-tomorrow')) {
+    document.getElementById('toggle-remind-tomorrow').addEventListener('click', () => {
+      state.settings.remindTomorrow = state.settings.remindTomorrow === false;
+      saveSettings();
+      applySettingsUI();
+      openSettings();
+    });
+  }
+
   document.getElementById('select-theme').addEventListener('change', (e) => {
     const newTheme = e.target.value;
     if (customDiffCount(newTheme) > 0) {
@@ -1061,6 +1232,7 @@ function bindEvents() {
       setActiveNav(view);
       if (view === 'week') showWeekView();
       else if (view === 'festivos') showFestivosView();
+      else if (view === 'stats') showStatsView();
       else showScheduleView();
     });
   });
