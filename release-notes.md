@@ -1,5 +1,9 @@
 ## 🕷️ Class BIT v1.1.0 — Estadísticas, sonidos personalizables y recordatorios cercanos
 
+### 🔴 Countdown con paleta de 24 colores
+- El contador de la **PRÓXIMA CLASE** cambia de color según las horas que faltan en **24 pasos progresivos**: verde (más de 23 h) → **amarillo** → **naranja** → **rojo** cuando la clase está por empezar.
+- Cada hora restante tiene su propia tonalidad, como una batería que se descarga, para que notes el acercamiento de un vistazo.
+
 ### 🔧 Fix: Estadísticas coherentes por día
 - Las STATS ahora muestran **solo las horas reales que das cada día**, sin acumulaciones confusas.
 - La tarjeta **MÁS CARGADA** pasó a **DÍA MÁS CARGADO** (el día con más horas, coincidiendo con las barras).
