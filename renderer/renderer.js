@@ -817,6 +817,90 @@ function registerSoundListener() {
   }
 }
 
+// ── WIDGETS: PRÓXIMA CLASE (HEADER) + EN CURSO (STATUS BAR) ──
+function fmtCountdown(totalSecs) {
+  totalSecs = Math.max(0, Math.floor(totalSecs));
+  const h = Math.floor(totalSecs / 3600);
+  const m = Math.floor((totalSecs % 3600) / 60);
+  const s = totalSecs % 60;
+  return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+}
+
+function currentClassToday() {
+  const now = new Date();
+  const dow = dayOfWeekMon0(now);
+  const nowMin = now.getHours() * 60 + now.getMinutes();
+  return state.classes.find(c => c.days.includes(dow) && nowMin >= minutesOf(c.startTime) && nowMin < minutesOf(c.endTime)) || null;
+}
+
+// Próxima clase de la semana (hoy o días siguientes)
+function nextUpcomingClass() {
+  const now = new Date();
+  const nowMin = now.getHours() * 60 + now.getMinutes();
+  for (let offset = 0; offset < 8; offset++) {
+    const candidate = new Date(now.getFullYear(), now.getMonth(), now.getDate() + offset);
+    const dow = dayOfWeekMon0(candidate);
+    const minStart = offset === 0 ? nowMin + 1 : -1;
+    const matches = state.classes
+      .filter(c => c.days.includes(dow) && minutesOf(c.startTime) > minStart)
+      .sort((a, b) => a.startTime.localeCompare(b.startTime));
+    if (matches.length) return { cls: matches[0], offset, dow };
+  }
+  return null;
+}
+
+function updateNextClassWidget() {
+  const header = document.getElementById('next-class-header');
+  const ncs = document.getElementById('now-class-status');
+  if (!header || !ncs) return;
+
+  const now = new Date();
+  const nowMin = now.getHours() * 60 + now.getMinutes();
+  const cur = currentClassToday();
+
+  // Status bar: clase EN CURSO
+  if (cur) {
+    const remainingMin = minutesOf(cur.endTime) - nowMin;
+    ncs.innerHTML = '';
+    const badge = document.createElement('span');
+    badge.className = 'ncs-badge';
+    const dot = document.createElement('span');
+    dot.className = 'rec-dot';
+    badge.appendChild(dot);
+    badge.appendChild(document.createTextNode('EN CURSO'));
+    const name = document.createElement('span');
+    name.className = 'ncs-name';
+    name.textContent = cur.name;
+    const ends = document.createElement('span');
+    ends.className = 'ncs-ends';
+    ends.textContent = `· termina en ${remainingMin} min`;
+    ncs.appendChild(badge);
+    ncs.appendChild(name);
+    ncs.appendChild(ends);
+    ncs.classList.add('show');
+  } else {
+    ncs.classList.remove('show');
+  }
+
+  // Header: cuenta regresiva a la próxima clase de la semana
+  const upcoming = nextUpcomingClass();
+  if (upcoming && !cur) {
+    const { cls, offset, dow } = upcoming;
+    const totalMin = offset * 1440 + (minutesOf(cls.startTime) - nowMin);
+    const secs = totalMin * 60 - now.getSeconds();
+    const label = document.getElementById('nch-label');
+    if (label) {
+      label.textContent = offset === 0 ? 'PRÓXIMA' : offset === 1 ? 'MAÑANA' : DAY_SHORT[dow];
+    }
+    document.getElementById('nch-name').textContent = cls.name;
+    document.getElementById('nch-timer').textContent = fmtCountdown(secs);
+    document.getElementById('nch-room').textContent = cls.room ? `📍 ${cls.room}` : '';
+    header.classList.add('show');
+  } else if (cur) {
+    header.classList.remove('show');
+  }
+}
+
 // ── STARS ────────────────────────────────────────
 function generateStars() {
   const container = document.getElementById('stars-container');
@@ -1014,8 +1098,8 @@ function init() {
     setTimeout(() => showToast('🎮 ¡Bienvenido a Class BIT!'), 800);
   });
 
-  // Reloj en tiempo real (actualiza cada segundo)
-  setInterval(updateClock, 1000);
+  // Reloj en tiempo real (actualiza cada segundo) + widgets de próxima clase
+  setInterval(() => { updateClock(); updateNextClassWidget(); }, 1000);
 
   // Mantiene HOY sincronizado: al reabrir la ventana y en cambio de fecha
   document.addEventListener('visibilitychange', () => {
