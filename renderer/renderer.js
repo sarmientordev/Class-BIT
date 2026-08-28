@@ -945,6 +945,24 @@ function registerSoundListener() {
 }
 
 // ── WIDGETS: PRÓXIMA CLASE (HEADER) + EN CURSO (STATUS BAR) ──
+// Paleta de 24 tonalidades para el contador (verde → amarillo → naranja → rojo).
+// Cada tonalidad representa 1 hora que falta para la clase (como una "batería").
+const COUNTDOWN_PALETTE = [
+  "#00e676","#21e767","#43e757","#64e848","#85e838","#a6e929",
+  "#c8e91a","#e9ea0a","#ffe600","#ffdc00","#ffd100","#ffc600",
+  "#ffbc00","#ffb100","#ffa600","#ff9c00","#fe9105","#fd860c",
+  "#fb7a13","#fa6f1a","#f86421","#f75928","#f54e2f","#f44336"
+];
+
+// Devuelve la tonalidad según las horas completas que faltan para la clase
+function countdownColor(hoursLeft) {
+  const N = COUNTDOWN_PALETTE.length;
+  if (hoursLeft >= N - 1) return COUNTDOWN_PALETTE[0];      // verde (mucho tiempo)
+  if (hoursLeft <= 0) return COUNTDOWN_PALETTE[N - 1];       // rojo (a punto de empezar)
+  const idx = N - 1 - Math.floor(hoursLeft);                  // menos horas → más rojo
+  return COUNTDOWN_PALETTE[Math.max(0, Math.min(N - 1, idx))];
+}
+
 function fmtCountdown(totalSecs) {
   totalSecs = Math.max(0, Math.floor(totalSecs));
   const h = Math.floor(totalSecs / 3600);
@@ -1030,7 +1048,13 @@ function updateNextClassWidget() {
       label.textContent = offset === 0 ? 'PRÓXIMA' : offset === 1 ? 'MAÑANA' : DAY_SHORT[dow];
     }
     document.getElementById('nch-name').textContent = cls.name;
-    document.getElementById('nch-timer').textContent = fmtCountdown(secs);
+    const timerEl = document.getElementById('nch-timer');
+    timerEl.textContent = fmtCountdown(secs);
+    // Color progresivo del contador según las horas que faltan (verde → rojo)
+    const hoursLeft = (offset * 24) + ((minutesOf(cls.startTime) - nowMin) / 60);
+    const ccolor = countdownColor(hoursLeft);
+    timerEl.style.color = ccolor;
+    timerEl.style.textShadow = `0 0 8px ${ccolor}`;
     document.getElementById('nch-room').textContent = cls.room ? `📍 ${cls.room}` : '';
     header.classList.add('show');
   } else if (cur) {
