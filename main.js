@@ -18,8 +18,18 @@ let tray = null;
 let isQuitting = false;
 
 // ── DATA PERSISTENCE ──────────────────────────────
+const DATA_VERSION = 3;
+
 function getDataPath() {
   return path.join(app.getPath('userData'), 'schedule-data.json');
+}
+
+function getBackupPath() {
+  return path.join(app.getPath('userData'), 'schedule-data.bak.json');
+}
+
+function getCorruptPath() {
+  return path.join(app.getPath('userData'), 'schedule-data.corrupt.json');
 }
 
 function getNotifiedPath() {
@@ -27,26 +37,73 @@ function getNotifiedPath() {
 }
 
 const DEFAULT_DATA = {
-  version: 2,
+  version: DATA_VERSION,
   classes: [],
   settings: { showClock: true, use24h: false, theme: 'pixel', soundEnabled: true, soundChoice: 'retro', remind15: true, remind5: true, remindTomorrow: true },
 };
 
-function readData() {
+// Migra datos de versiones anteriores del esquema al formato actual
+function migrateData(parsed) {
+  if (!parsed || typeof parsed !== 'object') return null;
+  const out = {
+    version: DATA_VERSION,
+    classes: Array.isArray(parsed.classes) ? parsed.classes : [],
+    settings: Object.assign({}, DEFAULT_DATA.settings, parsed.settings || {}),
+  };
+  return out;
+}
+
+function readJsonSafe(file) {
   try {
-    const raw = fs.readFileSync(getDataPath(), 'utf-8');
-    const parsed = JSON.parse(raw);
-    if (parsed && Array.isArray(parsed.classes)) {
-      // merge settings defaults (migración)
-      parsed.settings = Object.assign({}, DEFAULT_DATA.settings, parsed.settings || {});
-      return parsed;    }
-  } catch (_) {}
-  return JSON.parse(JSON.stringify(DEFAULT_DATA));
+    const parsed = JSON.parse(fs.readFileSync(file, 'utf-8'));
+    return (parsed && Array.isArray(parsed.classes)) ? migrateData(parsed) : null;
+  } catch (_) { return null; }
+}
+
+function readData() {
+  // 1) Intenta el archivo principal
+  let data = readJsonSafe(getDataPath());
+  const mainOk = !!data;
+
+  // 2) Si falló, intenta el backup automático
+  if (!data) {
+    const backup = readJsonSafe(getBackupPath());
+    if (backup) {
+      // Conserva el archivo dañado para diagnóstico antes de restaurar
+      try { fs.copyFileSync(getDataPath(), getCorruptPath()); } catch (_) {}
+      data = backup;
+    }
+  }
+
+  // 3) Si tampoco hay backup, arranca con defaults
+  if (!data) return JSON.parse(JSON.stringify(DEFAULT_DATA));
+
+  // 4) Persiste la normalización solo si hacía falta: esquema viejo en disco
+  //    o el archivo principal estaba dañado y se recuperó del backup.
+  try {
+    const disk = JSON.parse(fs.readFileSync(getDataPath(), 'utf-8'));
+    const oldSchema = !disk || !disk.version || disk.version !== DATA_VERSION;
+    if (oldSchema || !mainOk) writeData(data);
+  } catch (_) {
+    if (!mainOk) writeData(data);
+  }
+  return data;
 }
 
 function writeData(data) {
   try {
-    fs.writeFileSync(getDataPath(), JSON.stringify(data, null, 2), 'utf-8');
+    const cur = getDataPath();
+    if (fs.existsSync(cur)) {
+      // Solo respalda si el archivo actual es legítimo (para no pisotear un backup sano
+      // con contenido corrupto/vacío); lo dañado se conserva aparte.
+      if (readJsonSafe(cur)) {
+        try { fs.copyFileSync(cur, getBackupPath()); } catch (_) {}
+      } else {
+        try { fs.copyFileSync(cur, getCorruptPath()); } catch (_) {}
+      }
+    }
+    data.version = DATA_VERSION;
+    fs.writeFileSync(cur, JSON.stringify(data, null, 2), 'utf-8');
   } catch (_) {}
 }
 
