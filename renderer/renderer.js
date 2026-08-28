@@ -261,37 +261,35 @@ function renderStats() {
     return;
   }
 
-  // Horas de clase por semana
-  let totalHours = 0;
+  // Horas reales de clase por día (cada clase aporta su duración al día en que se da)
   const perDay = Array(7).fill(0);
-  const perSubj = {};
   classes.forEach(c => {
-    let dur = (minutesOf(c.endTime) - minutesOf(c.startTime)) / 60;
-    const howMany = c.days.length;
-    totalHours += dur * howMany;
+    const dur = (minutesOf(c.endTime) - minutesOf(c.startTime)) / 60;
     c.days.forEach(d => { perDay[d] += dur; });
-    const key = (c.name || 'S/D').toUpperCase();
-    perSubj[key] = (perSubj[key] || 0) + dur * howMany;
   });
 
   const now = new Date();
   const todayIdx = dayOfWeekMon0(now);
-  const todayCount = classes.filter(c => c.days.includes(todayIdx)).length;
+  const todayHours = perDay[todayIdx];
+  const totalHours = perDay.reduce((a, b) => a + b, 0);
 
-  const topSubj = Object.entries(perSubj).sort((a, b) => b[1] - a[1]);
-  const mostLoaded = topSubj.length ? topSubj[0] : null;
+  // Día con más carga
+  let maxDayIdx = 0;
+  for (let i = 1; i < 7; i++) if (perDay[i] > perDay[maxDayIdx]) maxDayIdx = i;
+  const maxDayHours = perDay[maxDayIdx];
 
+  const fmt = h => (h > 0 ? h.toFixed(1).replace('.', ',') + 'h' : '—');
   const card = (value, label) => `
     <div class="stat-card">
       <div class="stat-value">${value}</div>
       <div class="stat-label">${label}</div>
     </div>`;
-  grid.innerHTML = card(totalHours.toFixed(1).replace('.', ','), 'HORAS/SEMANA') +
+  grid.innerHTML = card(fmt(totalHours), 'HORAS/SEMANA') +
     card(classes.length, 'MATERIAS') +
-    card(todayCount, 'HOY') +
-    card(mostLoaded ? mostLoaded[1].toFixed(1).replace('.', ',') + 'h' : '—', 'MÁS CARGADA');
+    card(fmt(todayHours), 'HOY') +
+    card(`${DAY_SHORT[maxDayIdx]} · ${fmt(maxDayHours)}`, 'DÍA MÁS CARGADO');
 
-  // Barras por día (compartida como % de horas)
+  // Barras por día (proporcional al día con más horas)
   const maxDay = Math.max(...perDay, 1);
   days.innerHTML = DAY_SHORT.map((name, i) => {
     const hours = perDay[i];
@@ -300,7 +298,7 @@ function renderStats() {
       <div class="stats-day-row">
         <span class="stats-day-name">${name}</span>
         <div class="stats-day-bar"><div class="stats-day-fill" style="width:${pct}%"></div></div>
-        <span class="stats-day-count">${hours > 0 ? hours.toFixed(1).replace('.', ',') + 'h' : '—'}</span>
+        <span class="stats-day-count">${fmt(hours)}</span>
       </div>`;
   }).join('');
 

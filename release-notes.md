@@ -1,5 +1,11 @@
 ## 🕷️ Class BIT v1.1.0 — Estadísticas, sonidos personalizables y recordatorios cercanos
 
+### 🔧 Fix: Estadísticas coherentes por día
+- Las STATS ahora muestran **solo las horas reales que das cada día**, sin acumulaciones confusas.
+- La tarjeta **MÁS CARGADA** pasó a **DÍA MÁS CARGADO** (el día con más horas, coincidiendo con las barras).
+- La tarjeta **HOY** muestra las **horas** (no el conteo) de clases de hoy.
+- Las barras por día, HOY y DÍA MÁS CARGADO ahora son consistentes entre sí.
+
 ### 📊 Nueva vista: ESTADÍSTICAS
 - Panel con tu resumen: **horas de clase por semana**, número de materias, clases de hoy y la materia más cargada.
 - Barras visuales de carga por cada día de la semana.
