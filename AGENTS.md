@@ -11,6 +11,14 @@
 5. **Actualizar el instalador `.exe`** en la release de GitHub con `npm run dist` y `gh release upload --clobber`. Solo crear una nueva release cuando haya un cambio significativo; para fixes menores, sobrescribir el .exe en la release existente.
 6. **Documentar el cambio en la release de GitHub**: después de pushear y subir el .exe, ACTUALIZAR las notas de la release (`gh release edit <tag> --notes-file <archivo>`) para que lo que se acaba de subir quede documentado. No dejar que la release quede desactualizada respecto al último commit.
 
+## Regla: BACKUP DE VERSIONES EN RELEASES
+
+**Siempre conservar 2 releases: la actual + la anterior (backup).**
+
+- Al lanzar una versión nueva N, eliminar la versión **N-2** (la "anterior de la anterior") para dejar la N-1 como backup.
+- Ejemplo: si se publica la **1.0.5**, eliminar la **1.0.3**; quedan **1.0.4** (backup) y **1.0.5** (actual).
+- La release **v1.0.0** se conserva SIEMPRE por nostalgia (no aplica la regla de backup).
+
 No importa si el cambio es pequeño: si la tarea terminó, se sube al remoto.
 
 ## Regla: CHECKLIST OBLIGATORIA ANTES DE CADA TAREA
