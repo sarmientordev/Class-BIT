@@ -19,6 +19,16 @@
 - Ejemplo: si se publica la **1.0.5**, eliminar la **1.0.3**; quedan **1.0.4** (backup) y **1.0.5** (actual).
 - La release **v1.0.0** se conserva SIEMPRE por nostalgia (no aplica la regla de backup).
 
+## Regla: VERSIONADO SEMÁNTICO AUTOMÁTICO
+
+**El agente asigna el número de versión según el tipo de cambio (SemVer `MAJOR.MINOR.PATCH`):**
+
+- **PATCH (X.Y.Z → X.Y.Z+1)**: fixes y ajustes pequeños (visuales, bugs, CSS). Ej: `1.0.3` → `1.0.4`.
+- **MINOR (X.Y.Z → X.(Y+1).0)**: feature nueva que no rompe lo anterior. Ej: `1.0.3` → `1.1.0`.
+- **MAJOR (X.Y.Z → (X+1).0.0)**: cambio que rompe compatibilidad o rediseño total. Ej: `2.0.0`.
+- **Nunca usar 4 partes** (`1.0.3.1` no es válido) ni abreviar (`1.2` = `1.2.0`, escribir los 3 números siempre).
+- Se nombra automáticamente: al terminar cada tarea, decidir patch/minor/major, actualizar `package.json`, y documentar en las release notes.
+
 No importa si el cambio es pequeño: si la tarea terminó, se sube al remoto.
 
 ## Regla: CHECKLIST OBLIGATORIA ANTES DE CADA TAREA
