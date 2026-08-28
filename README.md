@@ -13,7 +13,7 @@ Horario universitario estilo **pixel art** para PC (Electron), con notificacione
 
 ## 🚀 Instalación (para usuarios)
 
-1. Descarga el instalador **Class-BIT-Setup-1.0.0.exe** desde [Releases](../../releases)
+1. Descarga el instalador **Class-BIT-Setup** desde [Releases](../../releases)
 2. Ejecútalo e instala
 3. Listo: se crea acceso directo en el escritorio y en el menú inicio
 
