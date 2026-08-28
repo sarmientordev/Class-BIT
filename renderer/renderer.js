@@ -22,7 +22,7 @@ let state = {
   selectedColor: PALETTE[0],
   editingId: null,
   currentView: 'schedule', // schedule | week | festivos
-  settings: { showClock: true, use24h: false },
+  settings: { showClock: true, use24h: false, soundEnabled: true },
 };
 
 // ── UTIL ─────────────────────────────────────────
@@ -468,7 +468,7 @@ function loadData() {
 function loadSettings() {
   if (!window.scheduleAPI) return Promise.resolve();
   return window.scheduleAPI.loadSettings().then(s => {
-    state.settings = Object.assign({ showClock: true, use24h: false, theme: 'pixel' }, s || {});
+    state.settings = Object.assign({ showClock: true, use24h: false, theme: 'pixel', soundEnabled: true }, s || {});
     state.settings.custom = Object.assign(customDefaults(), (state.settings.custom || {}));
     applySettingsUI();
   });
@@ -743,6 +743,8 @@ function openSettings() {
   document.getElementById('toggle-clock').classList.toggle('on', state.settings.showClock);
   document.getElementById('toggle-24h').setAttribute('aria-checked', state.settings.use24h);
   document.getElementById('toggle-24h').classList.toggle('on', state.settings.use24h);
+  document.getElementById('toggle-sound').setAttribute('aria-checked', state.settings.soundEnabled !== false);
+  document.getElementById('toggle-sound').classList.toggle('on', state.settings.soundEnabled !== false);
   updateThemePicker();
   document.getElementById('settings-overlay').classList.add('open');
 }
@@ -776,6 +778,43 @@ function showToast(msg) {
   toast.classList.add('show');
   clearTimeout(toast._t);
   toast._t = setTimeout(() => toast.classList.remove('show'), 2200);
+}
+
+// ── SONIDO DE NOTIFICACIÓN ───────────────────────
+let audioCtx = null;
+
+// Chime retro pixel (E5 → A5 → C#6) sintetizado sin archivos externos
+function playNotificationSound() {
+  try {
+    if (!audioCtx) {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+    const now = audioCtx.currentTime;
+    [659.25, 880.0, 1108.73].forEach((freq, i) => {
+      const t = now + i * 0.09;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'square';
+      osc.frequency.value = freq;
+      gain.gain.setValueAtTime(0.0001, t);
+      gain.gain.exponentialRampToValueAtTime(0.2, t + 0.01);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.18);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start(t);
+      osc.stop(t + 0.2);
+    });
+  } catch (_) {}
+}
+
+// Escucha el evento del proceso principal y reproduce el sonido
+function registerSoundListener() {
+  if (window.scheduleAPI && window.scheduleAPI.onNotificationSound) {
+    window.scheduleAPI.onNotificationSound(() => {
+      if (state.settings.soundEnabled !== false) playNotificationSound();
+    });
+  }
 }
 
 // ── STARS ────────────────────────────────────────
@@ -866,6 +905,14 @@ function bindEvents() {
     saveSettings();
     applySettingsUI();
     openSettings();
+  });
+
+  document.getElementById('toggle-sound').addEventListener('click', () => {
+    state.settings.soundEnabled = state.settings.soundEnabled === false;
+    saveSettings();
+    applySettingsUI();
+    openSettings();
+    if (state.settings.soundEnabled) playNotificationSound();
   });
 
   document.getElementById('select-theme').addEventListener('change', (e) => {
@@ -963,6 +1010,7 @@ function init() {
     bindEvents();
     return loadSettings();
   }).then(() => {
+    registerSoundListener();
     setTimeout(() => showToast('🎮 ¡Bienvenido a Class BIT!'), 800);
   });
 

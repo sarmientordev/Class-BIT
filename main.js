@@ -29,7 +29,7 @@ function getNotifiedPath() {
 const DEFAULT_DATA = {
   version: 2,
   classes: [],
-  settings: { showClock: true, use24h: false, theme: 'pixel' },
+  settings: { showClock: true, use24h: false, theme: 'pixel', soundEnabled: true },
 };
 
 function readData() {
@@ -112,6 +112,18 @@ function sendNotification(title, body) {
     }
   });
   n.show();
+  playNotificationSound();
+}
+
+// Reproduce el sonido en el renderer aunque Windows bloquee la notificación visual
+function playNotificationSound() {
+  try {
+    const data = readData();
+    const enabled = data.settings && data.settings.soundEnabled !== false;
+    if (enabled && mainWindow && !mainWindow.isDestroyed()) {
+      mainWindow.webContents.send('sound:notification');
+    }
+  } catch (_) {}
 }
 
 // ── SCHEDULER ─────────────────────────────────────

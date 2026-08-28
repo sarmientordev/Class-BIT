@@ -14,4 +14,5 @@ contextBridge.exposeInMainWorld('scheduleAPI', {
   loadSettings: () => ipcRenderer.invoke('settings:load'),
   saveSettings: (settings) => ipcRenderer.invoke('settings:save', settings),
   setTitleBarOverlay: (opts) => ipcRenderer.invoke('window:set-titlebar', opts),
+  onNotificationSound: (callback) => ipcRenderer.on('sound:notification', () => callback()),
 });
