@@ -1,20 +1,16 @@
-# Class BIT v1.2.1 — Mejoras visuales en la malla semanal y el countdown
+# Class BIT v1.2.2 — Malla semanal rediseñada
 
-## Malla semanal: prioridad a los dias con clase
-- En la vista de semana, los dias que tienen clases ocupan mas ancho, mientras que los dias sin clase (por ejemplo sabado y domingo) se ven mas angostos.
-- Si agregas una clase a un dia que estaba vacio, esa columna se expande sola al tamaño de los dias con clase (y viceversa).
-- Esto aprovecha mejor el espacio: cada horario se adapta a las materias reales de cada persona, sin desperdiciar espacio en dias sin clases.
+## Malla semanal: clases en su franja horaria
+- Cada clase ahora **abarca su duración real** en la vista de semana (de la hora de inicio a la hora de fin), no es un simple recuadro decorativo.
+- Se muestra claramente el **nombre de la materia, la hora (inicio – fin) y el salón** dentro de cada bloque.
+- Los **días sin clase** (por ejemplo sábado y domingo) se ven angostos, y los días con clase ocupan más ancho. Si agregas una clase a un día vacío, esa columna crece sola.
 
-## Countdown de la proxima clase con paleta de colores
-- El contador de la proxima clase cambia de color segun las horas que faltan (verde -> amarillo -> naranja -> rojo), como una bateria que se descarga.
-- **Ajuste**: el rojo puro se alcanza a partir de ~2-3 horas restantes, y en la ultima hora el contador entra en rojo profundo para avisar que la clase esta por comenzar.
-
-## Viene desde 1.2.0: tus clases nunca se pierden al actualizar
-- **Migracion automatica de datos**: al instalar una version nueva, tu horario se adapta solo al nuevo formato sin borrar nada.
-- **Backup automatico** (`schedule-data.bak.json`) y **auto-restauracion**: si el archivo principal se corrompe o una version vieja lo resetea, la app restaura los datos sola y conserva el danado aparte (`.corrupt.json`).
+## Hits que siguen en pie
+- **Countdown de próxima clase** con paleta de colores (rojo puro desde ~2-3 h y rojo profundo en la última hora).
+- **Tus clases nunca se pierden al actualizar**: migración automática + backup + auto-restauración.
 
 ## Compatibilidad
 Todas las novedades se adaptan a cada tema (PIXEL, OSCURO, CLARO, CYBER FOREST, SYNTHWAVE CITY y SPIDER-VERSE).
 
 ## Como actualizar
-Descarga **Class-BIT-Setup-1.2.1.exe**. Tus clases y configuraciones se conservan y se migran automaticamente.
+Descarga **Class-BIT-Setup-1.2.2.exe**. Tus clases y configuraciones se conservan y se migran automaticamente.
