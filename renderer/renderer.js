@@ -87,14 +87,16 @@ function renderWeekGrid() {
     `56px ` + DAY_SHORT.map((_, d) => hasClassDay[d] ? 'minmax(130px, 3fr)' : 'minmax(44px, 0.7fr)').join(' ');
 
   // Redondea cada clase a bloques de hora entera (sin exactitud de minutos).
-  // Empieza en la hora que toca su inicio; ocupa round(duración/1h) bloques (mín 1).
+  // Ocupa desde la hora que toca su inicio (floor) hasta la hora que toca su fin (floor).
+  // Así todas las clases que terminan a las X:45 terminan en la misma hora (coherente).
   const blocksByDay = Array.from({ length: 7 }, () => []);
   state.classes.forEach(c => {
     const sm = minutesOf(c.startTime);
     const em = minutesOf(c.endTime);
-    const durH = Math.max(1, Math.round((em - sm) / 60));
+    const sBlock = Math.floor(sm / 60);
+    const eBlock = Math.max(sBlock + 1, Math.floor(em / 60));
     c.days.forEach(d => {
-      blocksByDay[d].push({ id: c.id, cls: c, day: d, sBlock: Math.floor(sm / 60), span: durH });
+      blocksByDay[d].push({ id: c.id, cls: c, day: d, sBlock, span: eBlock - sBlock });
     });
   });
 
