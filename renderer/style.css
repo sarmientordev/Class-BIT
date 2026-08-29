@@ -1186,7 +1186,7 @@ body {
   grid-template-columns: 64px repeat(7, 1fr);
   gap: 3px;
   margin-bottom: 14px;
-  grid-auto-rows: 30px;
+  grid-auto-rows: 40px;
 }
 .w-col-head { font-family: var(--font-pixel); font-size: 8px; color: var(--text-dim); text-align: center; padding: 8px 2px; background: var(--bg-panel); border: 1px solid var(--border-pixel); }
 .w-col-head.is-today { color: var(--accent-cyan); border-color: var(--accent-cyan); }

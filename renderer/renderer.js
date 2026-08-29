@@ -72,33 +72,49 @@ function renderWeekGrid() {
   const now = new Date();
   const todayIdx = dayOfWeekMon0(now);
 
-  // Build timeline from min to max class, rounding to 15min
+  // Malla por horas enteras (sin exactitud de 15 min) para que se vea compacta.
   const allTimes = state.classes.flatMap(c => [minutesOf(c.startTime), minutesOf(c.endTime)]);
-  const startMin = allTimes.length ? Math.floor(Math.min(...allTimes) / 15) * 15 : 6 * 60;
-  const endMin = allTimes.length ? Math.ceil(Math.max(...allTimes) / 15) * 15 : 22 * 60;
-  const rows = [];
-  for (let time = startMin; time < endMin; time += 15) rows.push(time);
-  const STEP = 15;
+  const startH = allTimes.length ? Math.floor(Math.min(...allTimes) / 60) : 6;
+  const endH = allTimes.length ? Math.ceil(Math.max(...allTimes) / 60) : 22;
+  const hours = [];
+  for (let h = startH; h < endH; h++) hours.push(h);
+  // Centinela por si el rango queda vacío
+  if (!hours.length) hours.push(startH);
 
   // Prioriza el ancho de los días que tienen clases: sin clase → columna angosta.
   const hasClassDay = state.classes.reduce((acc, c) => { c.days.forEach(d => { acc[d] = true; }); return acc; }, {});
   grid.style.gridTemplateColumns =
     `56px ` + DAY_SHORT.map((_, d) => hasClassDay[d] ? 'minmax(130px, 3fr)' : 'minmax(44px, 0.7fr)').join(' ');
 
-  // Índice de fila (0-based) correspondiente a un tiempo dado.
-  const rowIndex = t => (t - startMin) / STEP;
-
-  // Clase que comienza en un día+tiempo dado.
-  const classAt = (day, t) => state.classes.find(c => c.days.includes(day) && minutesOf(c.startTime) === t) || null;
-
-  // Colección de bloques (celdas que contienen el inicio de una clase) y duración en pasos.
-  const classBlocks = [];
-  rows.forEach(t => {
-    for (let d = 0; d < 7; d++) {
-      const c = classAt(d, t);
-      if (c) classBlocks.push({ id: c.id, day: d, startIdx: rowIndex(t), span: Math.max(1, Math.round((minutesOf(c.endTime) - minutesOf(c.startTime)) / STEP)) });
-    }
+  // Redondea cada clase a bloques de hora entera (sin exactitud de minutos).
+  // Empieza en la hora que toca su inicio; ocupa round(duración/1h) bloques (mín 1).
+  const blocksByDay = Array.from({ length: 7 }, () => []);
+  state.classes.forEach(c => {
+    const sm = minutesOf(c.startTime);
+    const em = minutesOf(c.endTime);
+    const durH = Math.max(1, Math.round((em - sm) / 60));
+    c.days.forEach(d => {
+      blocksByDay[d].push({ id: c.id, cls: c, day: d, sBlock: Math.floor(sm / 60), span: durH });
+    });
   });
+
+  // Resuelve solapamientos: clases contiguas/muy juntas se empalman una tras otra (sin solaparse).
+  const classBlocks = [];
+  blocksByDay.forEach(list => {
+    list.sort((a, b) => a.sBlock - b.sBlock);
+    let cursor = -Infinity;
+    list.forEach(b => {
+      const s = Math.max(b.sBlock, cursor);
+      b.sBlock = s;
+      b.eBlock = s + b.span;
+      cursor = b.eBlock;
+      classBlocks.push(b);
+    });
+  });
+
+  // Determina qué celda ocupa cada hora-fila por día.
+  const blockAt = (day, h) => classBlocks.find(b => b.day === day && b.sBlock === h) || null;
+  const insideBlock = (day, h) => classBlocks.some(b => b.day === day && h > b.sBlock && h < b.eBlock);
 
   let html = '';
   // Header row (7 column heads)
@@ -106,20 +122,16 @@ function renderWeekGrid() {
     html += `<div class="w-col-head${i === todayIdx ? ' is-today' : ''}" style="grid-row:1;grid-column:${i + 2}">${esc(d)}</div>`;
   });
 
-  // Celdas: libres + bloques de clase con span de duración (posicionamiento explícito).
-  rows.forEach((t, ti) => {
-    const timeLabel = `<div class="w-time-label" style="grid-row:${ti + 2};grid-column:1">${formatHourLabel(t)}</div>`;
+  // Filas por hora: etiqueta de hora + 7 celdas (libres o bloques con span).
+  hours.forEach((h, hi) => {
+    const timeLabel = `<div class="w-time-label" style="grid-row:${hi + 2};grid-column:1">${formatHourLabel(h * 60)}</div>`;
     let dayCells = '';
     for (let d = 0; d < 7; d++) {
-      const block = classBlocks.find(b => b.day === d && b.startIdx === ti);
+      const block = blockAt(d, h);
       if (block) {
-        // Celda de inicio: se expande sobre su duración real.
-        dayCells += `<div class="w-cell has" style="grid-row:${ti + 2} / span ${block.span};grid-column:${d + 2}" data-day="${d}" data-cls="${esc(block.id)}"></div>`;
-      } else {
-        const inSpan = classBlocks.some(b => b.day === d && ti > b.startIdx && ti < b.startIdx + b.span);
-        if (!inSpan) {
-          dayCells += `<div class="w-cell" style="grid-row:${ti + 2};grid-column:${d + 2}"></div>`;
-        }
+        dayCells += `<div class="w-cell has" style="grid-row:${hi + 2} / span ${block.span};grid-column:${d + 2}" data-day="${d}" data-cls="${esc(block.id)}"></div>`;
+      } else if (!insideBlock(d, h)) {
+        dayCells += `<div class="w-cell" style="grid-row:${hi + 2};grid-column:${d + 2}"></div>`;
       }
     }
     html += timeLabel + dayCells;
@@ -127,12 +139,11 @@ function renderWeekGrid() {
 
   grid.innerHTML = html;
 
-  // Rellena cada bloque de clase con el chip (abarca toda la duración).
+  // Rellena cada bloque de clase con el chip (muestra la hora real, no la redondeada).
   classBlocks.forEach(block => {
     const cell = grid.querySelector(`.w-cell.has[data-cls="${CSS.escape(block.id)}"]`);
     if (!cell) return;
-    const cls = classAt(block.day, startMin + block.startIdx * STEP);
-    if (!cls) return;
+    const cls = block.cls;
     cell.innerHTML = `<div class="w-chip" style="background:${cls.color}" data-id="${esc(cls.id)}">
         <strong>${esc(cls.name)}</strong>
         <span class="w-chip-time">${formatTime(cls.startTime)} – ${formatTime(cls.endTime)}</span>
