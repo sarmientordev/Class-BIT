@@ -1,13 +1,13 @@
-# Class BIT v1.2.5
+# Class BIT v1.2.6
 
-## Fix — cierre de la malla semanal coherente
+## Fix — todos los días cierran hasta el fondo de la malla
 
-- Todas tus clases terminan a las **21:45**, pero la malla por horas cerradas mostraba cierres **inconsistentes**: los días de una sola clase llegaban a las **21:00** y los días de dos clases se estiraban **hasta las 22:00**.
-- **Corregido**: ahora cualquier clase usa el mismo criterio de cierre (hasta la hora en punto que toca su fin), así **todos los días terminan a las 21:00** de forma uniforme.
-- El horario se ve ordenado: lunes, martes, miércoles, jueves y viernes cierran a la misma hora, sin estirones raros.
+- Antes, los días con 2 clases (lunes y jueves) llegaban hasta el fondo de la malla, pero los días con 1 sola clase larga (martes y miércoles) se quedaban cortos y no llegaban hasta abajo, aunque también terminan a las **21:45**.
+- **Corregido**: ahora el **último bloque de cada día se estira hasta la hora en punto que toca su fin real**, así todos los días —lunes, martes, miércoles, jueves y viernes— cierran **hasta el fondo** de la cuadrícula, de forma pareja.
+- Sin importar si el día tiene 1 o 2 clases, la malla termina alineada en la misma fila.
 - El chip de cada clase sigue mostrando su hora real (ej. 18:45 – 21:45) y su salón.
 
 ## Instalación
 
-- Descarga `Class-BIT-Setup-1.2.5.exe` e instala sobre tu versión actual.
+- Descarga `Class-BIT-Setup-1.2.6.exe` e instala sobre tu versión actual.
 - (Opcional) Revisa `release-notes.md` en el repo para el historial de cambios.
