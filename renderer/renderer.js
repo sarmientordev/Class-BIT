@@ -945,13 +945,14 @@ function registerSoundListener() {
 }
 
 // ── WIDGETS: PRÓXIMA CLASE (HEADER) + EN CURSO (STATUS BAR) ──
-// Paleta de 24 tonalidades para el contador (verde → amarillo → naranja → rojo).
-// Cada tonalidad representa 1 hora que falta para la clase (como una "batería").
+// Paleta de tonalidades para el contador (verde → amarillo → naranja → rojo).
+// El rojo puro/señal se alcanza a partir de ~2-3h restantes y termina en rojo profundo en la última hora.
 const COUNTDOWN_PALETTE = [
   "#00e676","#21e767","#43e757","#64e848","#85e838","#a6e929",
-  "#c8e91a","#e9ea0a","#ffe600","#ffdc00","#ffd100","#ffc600",
-  "#ffbc00","#ffb100","#ffa600","#ff9c00","#fe9105","#fd860c",
-  "#fb7a13","#fa6f1a","#f86421","#f75928","#f54e2f","#f44336"
+  "#c8e91a","#e9ea0a","#ffe600","#ffdd00","#ffd200","#ffc800",
+  "#ffbd00","#ffb300","#ffa800","#ff9e00","#fe9308","#fd8810",
+  "#fb7c18","#fa7120","#f8662a","#e8491d","#d32f2f","#e53935",
+  "#d50000","#b71c1c"
 ];
 
 // Devuelve la tonalidad según las horas completas que faltan para la clase
