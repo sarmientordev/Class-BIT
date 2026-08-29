@@ -159,7 +159,7 @@ function sendNotification(title, body) {
   const n = new Notification({
     title,
     body,
-    silent: false,
+    silent: true,
     icon: path.join(__dirname, 'assets', 'icon.png'),
   });
   n.on('click', () => {
