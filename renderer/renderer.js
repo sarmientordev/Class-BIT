@@ -96,7 +96,7 @@ function renderWeekGrid() {
   rows.forEach(t => {
     for (let d = 0; d < 7; d++) {
       const c = classAt(d, t);
-      if (c) classBlocks.push({ day: d, startIdx: rowIndex(t), span: Math.max(1, Math.round((minutesOf(c.endTime) - minutesOf(c.startTime)) / STEP)) });
+      if (c) classBlocks.push({ id: c.id, day: d, startIdx: rowIndex(t), span: Math.max(1, Math.round((minutesOf(c.endTime) - minutesOf(c.startTime)) / STEP)) });
     }
   });
 
@@ -114,7 +114,7 @@ function renderWeekGrid() {
       const block = classBlocks.find(b => b.day === d && b.startIdx === ti);
       if (block) {
         // Celda de inicio: se expande sobre su duración real.
-        dayCells += `<div class="w-cell has" style="grid-row:${ti + 2} / span ${block.span};grid-column:${d + 2}" data-day="${d}"></div>`;
+        dayCells += `<div class="w-cell has" style="grid-row:${ti + 2} / span ${block.span};grid-column:${d + 2}" data-day="${d}" data-cls="${esc(block.id)}"></div>`;
       } else {
         const inSpan = classBlocks.some(b => b.day === d && ti > b.startIdx && ti < b.startIdx + b.span);
         if (!inSpan) {
@@ -129,7 +129,7 @@ function renderWeekGrid() {
 
   // Rellena cada bloque de clase con el chip (abarca toda la duración).
   classBlocks.forEach(block => {
-    const cell = grid.querySelector(`.w-cell.has[data-day="${block.day}"]`);
+    const cell = grid.querySelector(`.w-cell.has[data-cls="${CSS.escape(block.id)}"]`);
     if (!cell) return;
     const cls = classAt(block.day, startMin + block.startIdx * STEP);
     if (!cls) return;
