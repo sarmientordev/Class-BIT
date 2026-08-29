@@ -1,22 +1,26 @@
-## 🕷️ Class BIT v1.2.0 — Tus clases nunca se pierden al actualizar
+# Class BIT v1.2.0 — Tus clases nunca se pierden al actualizar
 
-### 💾 Migración automática de datos
-- Al instalar una versión nueva, tu horario se **adapta solo** a la nueva versión: la app detecta el formato antiguo y lo migra sin borrar nada.
-- Adiós al susto de abrir la app y ver las clases vacías después de actualizar el .exe.
+## Migracion automatica de datos
+- Al instalar una version nueva, tu horario se **adapta solo** a la nueva version: la app detecta el formato antiguo y lo migra sin borrar nada.
+- Adios al susto de abrir la app y ver las clases vacias despues de actualizar el .exe.
 
-### 🛡 Backup automático
+## Backup automatico
 - Antes de cada cambio, la app guarda una copia de seguridad de tu horario (`schedule-data.bak.json`).
-- Si el archivo principal se corrompe o una versión vieja lo resetea, la app **restaura automáticamente** desde el backup y conserva el archivo dañado aparte (`.corrupt.json`) por si acaso.
+- Si el archivo principal se corrompe o una version vieja lo resetea, la app **restaura automaticamente** desde el backup y conserva el archivo danado aparte (`.corrupt.json`) por si acaso.
 
-### 🔄 Cómo funcionan las 3 capas de protección
-1. **Migración**: formato viejo → nuevo automático.
+## Como funcionan las 3 capas de proteccion
+1. **Migracion**: formato viejo a nuevo automatico.
 2. **Backup**: copia de seguridad antes de cada guardado.
-3. **Auto-restauración**: datos recuperados solos si algo falla.
+3. **Auto-restauracion**: datos recuperados solos si algo falla.
 
 Tus clases, temas y ajustes quedan seguros en todas las versiones.
 
-### 💬 Compatibilidad
+## Countdown de la proxima clase con paleta de colores
+- El contador de la proxima clase cambia de color segun las horas que faltan (verde -> amarillo -> naranja -> rojo), como una bateria que se descarga.
+- **Ajuste**: el rojo puro se alcanza a partir de ~2-3 horas restantes, y en la ultima hora el contador entra en rojo profundo para avisar que la clase esta por comenzar.
+
+## Compatibilidad
 Todas las novedades se adaptan a cada tema (PIXEL, OSCURO, CLARO, CYBER FOREST, SYNTHWAVE CITY y SPIDER-VERSE).
 
-### Cómo actualizar
-Descarga **Class-BIT-Setup-1.2.0.exe**. Tus clases y configuraciones se conservan y se migran automáticamente.
+## Como actualizar
+Descarga **Class-BIT-Setup-1.2.0.exe**. Tus clases y configuraciones se conservan y se migran automaticamente.
