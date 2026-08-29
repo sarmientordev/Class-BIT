@@ -88,8 +88,10 @@ function renderWeekGrid() {
 
   // Redondea cada clase a bloques de hora entera (sin exactitud de minutos).
   // Ocupa desde la hora que toca su inicio (floor) hasta la hora que toca su fin (floor).
-  // Así todas las clases que terminan a las X:45 terminan en la misma hora (coherente).
+  // Luego el ÚLTIMO bloque de cada día se estira hasta la hora en punto que toca el fin real
+  // (ceil), para que todos los días que terminan a las X:45 cierren en la misma fila (el fondo).
   const blocksByDay = Array.from({ length: 7 }, () => []);
+  const endsByDay = Array.from({ length: 7 }, () => []);
   state.classes.forEach(c => {
     const sm = minutesOf(c.startTime);
     const em = minutesOf(c.endTime);
@@ -97,7 +99,18 @@ function renderWeekGrid() {
     const eBlock = Math.max(sBlock + 1, Math.floor(em / 60));
     c.days.forEach(d => {
       blocksByDay[d].push({ id: c.id, cls: c, day: d, sBlock, span: eBlock - sBlock });
+      endsByDay[d].push(em);
     });
+  });
+
+  // Estira el último bloque de cada día hasta el cierre real (ceil) → llega al fondo.
+  blocksByDay.forEach((list, d) => {
+    if (!list.length || !endsByDay[d].length) return;
+    const ceilEnd = Math.ceil(Math.max(...endsByDay[d]) / 60);
+    list.sort((a, b) => a.sBlock - b.sBlock);
+    const last = list[list.length - 1];
+    last.eBlock = Math.max(last.sBlock + 1, ceilEnd);
+    last.span = last.eBlock - last.sBlock;
   });
 
   // Resuelve solapamientos: clases contiguas/muy juntas se empalman una tras otra (sin solaparse).
