@@ -1,16 +1,14 @@
-# Class BIT v1.2.2 — Malla semanal rediseñada
+# Class BIT v1.2.3 — Fix: se muestran todas las clases de un día
 
-## Malla semanal: clases en su franja horaria
-- Cada clase ahora **abarca su duración real** en la vista de semana (de la hora de inicio a la hora de fin), no es un simple recuadro decorativo.
-- Se muestra claramente el **nombre de la materia, la hora (inicio – fin) y el salón** dentro de cada bloque.
-- Los **días sin clase** (por ejemplo sábado y domingo) se ven angostos, y los días con clase ocupan más ancho. Si agregas una clase a un día vacío, esa columna crece sola.
+## Corrección
+- Cuando un día tiene varias clases (por ejemplo el Lunes con Visualización de Datos y Electiva), **ahora se muestran todas**, no solo la primera.
+- Las clases siguen apareciendo en su franja horaria real, contiguas sin taparse (una empieza justo cuando termina la otra).
+- Se mantiene el ancho dinámico: días sin clase angostos, días con clase anchos.
 
 ## Hits que siguen en pie
-- **Countdown de próxima clase** con paleta de colores (rojo puro desde ~2-3 h y rojo profundo en la última hora).
-- **Tus clases nunca se pierden al actualizar**: migración automática + backup + auto-restauración.
-
-## Compatibilidad
-Todas las novedades se adaptan a cada tema (PIXEL, OSCURO, CLARO, CYBER FOREST, SYNTHWAVE CITY y SPIDER-VERSE).
+- Malla semanal: clases abarcan su duración real, con nombre, hora y salón.
+- Countdown de próxima clase con paleta de colores.
+- Tus clases nunca se pierden al actualizar (migración + backup + auto-restauración).
 
 ## Como actualizar
-Descarga **Class-BIT-Setup-1.2.2.exe**. Tus clases y configuraciones se conservan y se migran automaticamente.
+Descarga **Class-BIT-Setup-1.2.3.exe**. Tus clases se conservan.
