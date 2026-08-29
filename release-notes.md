@@ -1,14 +1,14 @@
-# Class BIT v1.2.3 — Fix: se muestran todas las clases de un día
+# Class BIT v1.2.4
 
-## Corrección
-- Cuando un día tiene varias clases (por ejemplo el Lunes con Visualización de Datos y Electiva), **ahora se muestran todas**, no solo la primera.
-- Las clases siguen apareciendo en su franja horaria real, contiguas sin taparse (una empieza justo cuando termina la otra).
-- Se mantiene el ancho dinámico: días sin clase angostos, días con clase anchos.
+## Ajuste visual — malla semanal más limpia y menos dispersa
 
-## Hits que siguen en pie
-- Malla semanal: clases abarcan su duración real, con nombre, hora y salón.
-- Countdown de próxima clase con paleta de colores.
-- Tus clases nunca se pierden al actualizar (migración + backup + auto-restauración).
+- **Malla por horas enteras**: las casillas ya no se dividen en bloques de 15 min; ahora cada fila es **1 hora cerrada** (18:00, 19:00, 20:00…), lo que la hace mucho más compacta y evita que se vea dispersa.
+- Se eliminó la "exactitud" de minutos en el posicionamiento: cada clase ocupa un número entero de bloques de hora según su duración.
+- Las clases contiguas (como las 2 del lunes) se empalman una tras otra sin superponerse.
+- El chip de cada clase sigue mostrando **la hora real** (ej. 18:45 – 20:15) y su salón, solo cambia la cuadrícula base a horas redondeadas.
+- Ajuste del alto de fila (40px) para que las tarjetas se lean cómodas sin alargar la malla.
 
-## Como actualizar
-Descarga **Class-BIT-Setup-1.2.3.exe**. Tus clases se conservan.
+## Instalación
+
+- Descarga `Class-BIT-Setup-1.2.4.exe` e instala sobre tu versión actual.
+- (Opcional) Revisa `release-notes.md` en el repo para el historial de cambios.
