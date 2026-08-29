@@ -79,6 +79,11 @@ function renderWeekGrid() {
   const rows = [];
   for (let time = startMin; time < endMin; time += 15) rows.push(time);
 
+  // Prioriza el ancho de los días que tienen clases: sin clase → columna angosta.
+  const hasClassDay = state.classes.reduce((acc, c) => { c.days.forEach(d => { acc[d] = true; }); return acc; }, {});
+  grid.style.gridTemplateColumns =
+    `56px ` + DAY_SHORT.map((_, d) => hasClassDay[d] ? 'minmax(130px, 3fr)' : 'minmax(44px, 0.7fr)').join(' ');
+
   let html = '';
   // Header row (7 column heads)
   DAY_SHORT.forEach((d, i) => {

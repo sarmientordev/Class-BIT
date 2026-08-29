@@ -42,6 +42,15 @@ No importa si el cambio es pequeño: si la tarea terminó, se sube al remoto.
 
 No ejecutar pasos sin antes mostrar el plan. El checklist es la primera respuesta visible antes de cualquier acción.
 
+## Regla: BARRA DE PROGRESO DE PORCENTAJE
+
+**Al ejecutar cualquier tarea, mostrar (junto al checklist) una barra de progreso de porcentaje de 0 a 100% que se vaya llenando visualmente conforme se completa cada paso.**
+
+- Formato: barra de texto tipo `[████▓░░░░░░] 40%` que muestre de un vistazo cuánto falta para terminar.
+- Actualizar la barra con el nuevo porcentaje al completar CADA paso del checklist, para que se vea cargar mientras se trabaja.
+- Complementa el checklist obligatorio: el checklist define los pasos (qué se hará) y la barra muestra el avance porcentual (cuánto llevo / cuánto falta).
+- Se usa en toda tarea, por pequeña que sea. La barra debe ser visible desde el inicio.
+
 ## Definición de "tarea terminada"
 
 En este proyecto una tarea NO está terminada hasta que:
