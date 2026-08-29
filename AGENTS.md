@@ -8,7 +8,7 @@
 2. Hacer `git add` SOLO de los archivos relacionados a la tarea.
 3. Commit con mensaje conciso que describa el cambio.
 4. **`git push origin main` es obligatorio al final de CADA tarea completada** — no dejar commits locales pendientes.
-5. **Actualizar el instalador `.exe`** en la release de GitHub con `npm run dist` y `gh release upload --clobber`. Solo crear una nueva release cuando haya un cambio significativo; para fixes menores, sobrescribir el .exe en la release existente.
+5. **Actualizar el instalador `.exe`** en la release de GitHub con `npm run dist` y `gh release upload --clobber`. **NO crear una release nueva para fixes menores**: regla general, cada corrección/ajuste pequeño (bugs, CSS, un arreglo de un cambio recién publicado) debe **sobrescribir el `.exe` en la release vigente** (la "Latest") sin tocar versionado ni backups. Solo crear una release nueva (y su bump SemVer + backup) cuando haya un **cambio significativo real**: feature nueva, rediseño grande, o un cambio que valga la pena aislar como versión. Es preferible NO disparar versiones ni eliminar releases por iteraciones de ajuste de un mismo cambio.
 6. **Documentar el cambio en la release de GitHub**: después de pushear y subir el .exe, ACTUALIZAR las notas de la release (`gh release edit <tag> --notes-file <archivo>`) para que lo que se acaba de subir quede documentado. No dejar que la release quede desactualizada respecto al último commit.
 
 ## Regla: BACKUP DE VERSIONES EN RELEASES
@@ -27,7 +27,7 @@
 - **MINOR (X.Y.Z → X.(Y+1).0)**: feature nueva que no rompe lo anterior. Ej: `1.0.3` → `1.1.0`.
 - **MAJOR (X.Y.Z → (X+1).0.0)**: cambio que rompe compatibilidad o rediseño total. Ej: `2.0.0`.
 - **Nunca usar 4 partes** (`1.0.3.1` no es válido) ni abreviar (`1.2` = `1.2.0`, escribir los 3 números siempre).
-- Se nombra automáticamente: al terminar cada tarea, decidir patch/minor/major, actualizar `package.json`, y documentar en las release notes.
+- Se nombra automáticamente: **solo cuando se lanza una release nueva** (cambio significativo), decidir patch/minor/major, actualizar `package.json` y documentar en las release notes. **Para fixes menores que sobrescriben el `.exe` en la release vigente, NO tocar `package.json`, NO bump, NO crear release nueva** (ver Regla principal, punto 5).
 
 No importa si el cambio es pequeño: si la tarea terminó, se sube al remoto.
 
