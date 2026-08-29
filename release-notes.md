@@ -19,6 +19,11 @@ Tus clases, temas y ajustes quedan seguros en todas las versiones.
 - El contador de la proxima clase cambia de color segun las horas que faltan (verde -> amarillo -> naranja -> rojo), como una bateria que se descarga.
 - **Ajuste**: el rojo puro se alcanza a partir de ~2-3 horas restantes, y en la ultima hora el contador entra en rojo profundo para avisar que la clase esta por comenzar.
 
+## Malla semanal: prioridad a los dias con clase
+- En la vista de semana, los dias que tienen clases ocupan mas ancho, mientras que los dias sin clase (por ejemplo sabado y domingo) se ven mas angostos.
+- Si agregas una clase a un dia que estaba vacio, esa columna se expande sola al tamaño de los dias con clase (y viceversa).
+- Esto aprovecha mejor el espacio: cada horario se adapta a las materias reales de cada persona, sin desperdiciar espacio en dias sin clases.
+
 ## Compatibilidad
 Todas las novedades se adaptan a cada tema (PIXEL, OSCURO, CLARO, CYBER FOREST, SYNTHWAVE CITY y SPIDER-VERSE).
 
