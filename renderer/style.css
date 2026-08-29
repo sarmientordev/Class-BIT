@@ -1186,21 +1186,30 @@ body {
   grid-template-columns: 64px repeat(7, 1fr);
   gap: 3px;
   margin-bottom: 14px;
+  grid-auto-rows: 30px;
 }
 .w-col-head { font-family: var(--font-pixel); font-size: 8px; color: var(--text-dim); text-align: center; padding: 8px 2px; background: var(--bg-panel); border: 1px solid var(--border-pixel); }
 .w-col-head.is-today { color: var(--accent-cyan); border-color: var(--accent-cyan); }
 .w-time-label { font-family: var(--font-vt); font-size: 14px; color: var(--text-dim); text-align: right; padding-right: 6px; line-height: 1.2; }
-.w-cell { min-height: 30px; background: var(--wcell-bg); border: 1px solid var(--wcell-border); position: relative; }
-.w-cell.has { padding: 3px; }
+.w-cell { min-height: 30px; background: var(--wcell-bg); border: 1px solid var(--wcell-border); position: relative; overflow: visible; }
+.w-cell.has { padding: 0; }
 .w-chip {
   border-left: 4px solid rgba(255,255,255,0.45);
-  padding: 4px 6px; min-height: 100%;
+  padding: 5px 7px;
+  min-height: 100%; height: 100%;
+  box-sizing: border-box;
   font-family: var(--font-vt); font-size: 14px; color: var(--chip-text);
-  cursor: pointer; line-height: 1.2; height: 100%;
+  cursor: pointer; line-height: 1.25;
   box-shadow: 2px 2px 0 0 rgba(0,0,0,0.35);
+  display: flex; flex-direction: column; gap: 3px;
+  justify-content: center;
+  overflow: hidden;
+  word-break: break-word;
 }
-.w-chip strong { display: block; font-weight: bold; }
-.w-chip:hover { filter: brightness(1.05); transform: scale(1.02); }
+.w-chip strong { display: block; font-weight: bold; font-size: 15px; }
+.w-chip-time { display: block; font-size: 13px; opacity: 0.95; }
+.w-chip-room { display: block; font-size: 12px; opacity: 0.85; }
+.w-chip:hover { filter: brightness(1.05); transform: scale(1.02); z-index: 2; }
 
 /* ═══ FESTIVOS ═══ */
 .festivos-panel { display: none; }

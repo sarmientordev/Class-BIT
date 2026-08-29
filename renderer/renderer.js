@@ -78,39 +78,66 @@ function renderWeekGrid() {
   const endMin = allTimes.length ? Math.ceil(Math.max(...allTimes) / 15) * 15 : 22 * 60;
   const rows = [];
   for (let time = startMin; time < endMin; time += 15) rows.push(time);
+  const STEP = 15;
 
   // Prioriza el ancho de los días que tienen clases: sin clase → columna angosta.
   const hasClassDay = state.classes.reduce((acc, c) => { c.days.forEach(d => { acc[d] = true; }); return acc; }, {});
   grid.style.gridTemplateColumns =
     `56px ` + DAY_SHORT.map((_, d) => hasClassDay[d] ? 'minmax(130px, 3fr)' : 'minmax(44px, 0.7fr)').join(' ');
 
+  // Índice de fila (0-based) correspondiente a un tiempo dado.
+  const rowIndex = t => (t - startMin) / STEP;
+
+  // Clase que comienza en un día+tiempo dado.
+  const classAt = (day, t) => state.classes.find(c => c.days.includes(day) && minutesOf(c.startTime) === t) || null;
+
+  // Colección de bloques (celdas que contienen el inicio de una clase) y duración en pasos.
+  const classBlocks = [];
+  rows.forEach(t => {
+    for (let d = 0; d < 7; d++) {
+      const c = classAt(d, t);
+      if (c) classBlocks.push({ day: d, startIdx: rowIndex(t), span: Math.max(1, Math.round((minutesOf(c.endTime) - minutesOf(c.startTime)) / STEP)) });
+    }
+  });
+
   let html = '';
   // Header row (7 column heads)
   DAY_SHORT.forEach((d, i) => {
-    html += `<div class="w-col-head${i === todayIdx ? ' is-today' : ''}">${esc(d)}</div>`;
+    html += `<div class="w-col-head${i === todayIdx ? ' is-today' : ''}" style="grid-row:1;grid-column:${i + 2}">${esc(d)}</div>`;
   });
-  // Grid rows: time label + 7 cells
-  rows.forEach(t => {
-    html += `<div class="w-time-label">${formatHourLabel(t)}</div>`;
+
+  // Celdas: libres + bloques de clase con span de duración (posicionamiento explícito).
+  rows.forEach((t, ti) => {
+    const timeLabel = `<div class="w-time-label" style="grid-row:${ti + 2};grid-column:1">${formatHourLabel(t)}</div>`;
+    let dayCells = '';
     for (let d = 0; d < 7; d++) {
-      const cls = state.classes.find(c => c.days.includes(d) && minutesOf(c.startTime) === t);
-      html += `<div class="w-cell${cls ? ' has' : ''}" data-row="${t}" data-day="${d}"></div>`;
+      const block = classBlocks.find(b => b.day === d && b.startIdx === ti);
+      if (block) {
+        // Celda de inicio: se expande sobre su duración real.
+        dayCells += `<div class="w-cell has" style="grid-row:${ti + 2} / span ${block.span};grid-column:${d + 2}" data-day="${d}"></div>`;
+      } else {
+        const inSpan = classBlocks.some(b => b.day === d && ti > b.startIdx && ti < b.startIdx + b.span);
+        if (!inSpan) {
+          dayCells += `<div class="w-cell" style="grid-row:${ti + 2};grid-column:${d + 2}"></div>`;
+        }
+      }
     }
+    html += timeLabel + dayCells;
   });
 
   grid.innerHTML = html;
 
-  // Fill cells that hold a starting class with a chip spanning its duration
-  grid.querySelectorAll('.w-cell.has').forEach(cell => {
-    const rowT = parseInt(cell.dataset.row);
-    const day = parseInt(cell.dataset.day);
-    const cls = state.classes.find(c => c.days.includes(day) && minutesOf(c.startTime) === rowT);
-    if (cls) {
-      cell.innerHTML = `<div class="w-chip" style="background:${cls.color}" data-id="${esc(cls.id)}">
-        <strong>${esc(cls.name.slice(0, 16))}</strong>
-        <span>${formatTime(cls.startTime)} – ${formatTime(cls.endTime)}</span>
+  // Rellena cada bloque de clase con el chip (abarca toda la duración).
+  classBlocks.forEach(block => {
+    const cell = grid.querySelector(`.w-cell.has[data-day="${block.day}"]`);
+    if (!cell) return;
+    const cls = classAt(block.day, startMin + block.startIdx * STEP);
+    if (!cls) return;
+    cell.innerHTML = `<div class="w-chip" style="background:${cls.color}" data-id="${esc(cls.id)}">
+        <strong>${esc(cls.name)}</strong>
+        <span class="w-chip-time">${formatTime(cls.startTime)} – ${formatTime(cls.endTime)}</span>
+        ${cls.room ? `<span class="w-chip-room">📍 ${esc(cls.room)}</span>` : ''}
       </div>`;
-    }
   });
 
   grid.onclick = (e) => {
