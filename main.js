@@ -39,6 +39,7 @@ function getNotifiedPath() {
 const DEFAULT_DATA = {
   version: DATA_VERSION,
   classes: [],
+  reminders: [],
   settings: { showClock: true, use24h: false, theme: 'pixel', soundEnabled: true, soundChoice: 'retro', remind15: true, remind5: true, remindTomorrow: true },
 };
 
@@ -48,6 +49,7 @@ function migrateData(parsed) {
   const out = {
     version: DATA_VERSION,
     classes: Array.isArray(parsed.classes) ? parsed.classes : [],
+    reminders: Array.isArray(parsed.reminders) ? parsed.reminders : [],
     settings: Object.assign({}, DEFAULT_DATA.settings, parsed.settings || {}),
   };
   return out;
@@ -443,9 +445,15 @@ function createTray() {
 function registerIpc() {
   ipcMain.handle('data:load', () => readData());
 
-  ipcMain.handle('data:save', (event, classes) => {
+  ipcMain.handle('data:save', (event, payload) => {
     const data = readData();
-    data.classes = classes;
+    // nuevo: payload puede ser el objeto completo { classes, reminders } o un array de clases
+    if (payload && typeof payload === 'object' && !Array.isArray(payload)) {
+      if (Array.isArray(payload.classes)) data.classes = payload.classes;
+      if (Array.isArray(payload.reminders)) data.reminders = payload.reminders;
+    } else if (Array.isArray(payload)) {
+      data.classes = payload;
+    }
     writeData(data);
     runScheduler();
     return true;

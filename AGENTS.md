@@ -1,5 +1,16 @@
 # AGENTS.md — Reglas para agentes (opencode) en este repositorio
 
+## Regla: DOBLE APLICACIÓN AUTOMÁTICA (Class BIT + Class BIT Web)
+
+**Cada vez que se haga una edición, actualización o mejora al programa, aplicarla AUTOMÁTICAMENTE tanto a la app "Class BIT" (repo `sarmientordev/Class-BIT`) como a la versión web "Class BIT Web" (repo `sarmientordev/class-bit-web`, desplegada en Vercel → https://class-bit-web.vercel.app).**
+
+- Al terminar una tarea con cambios en el código (renderer.js, index.html, style.css, web-shim.js, holidays.js o similares), aplicar el cambio en AMBOS repositorios:
+  1. **Class BIT** (app desktop): editar los fuentes + commit + push, siguiendo la regla principal (y `.exe`/release si aplica).
+  2. **Class BIT Web** (web): replicar el mismo cambio en `sarmientordev/class-bit-web` + commit + `git push` (el push dispara el auto-deploy de Vercel).
+- La web reutiliza el mismo `renderer.js` que la app (vía `web-shim.js`), así que la mayoría de cambios de UI/lógica se espejan directamente.
+- **Excepción (aplicación INDIVIDUAL)**: solo aplicar el cambio a UNA de las dos (p. ej. solo mobile, solo PC, solo la app o solo la web) cuando Rafael lo **especifique explícitamente**. Por defecto, SIEMPRE se aplica a ambas.
+- Al terminar, verificar que ambos deploys/quedaron actualizados (en la web, confirmar que la versión servida refleja el cambio) y documentar en los logs.
+
 ## Regla principal: COMMIT Y PUSH OBLIGATORIOS
 
 **Cada vez que se termine una tarea, SIEMPRE subir los cambios al repositorio:**
