@@ -1,3 +1,23 @@
+# Class BIT v1.4.0
+
+## Rediseño — Cuaderno como un libro real 📖
+
+- El cuaderno de recordatorios ahora se abre como un **libro de 2 hojas** (vista de cuaderno abierto).
+- Cada hoja guarda **5 pendientes** (10 por vista): 5 a la izquierda y 5 a la derecha, apilados de arriba a abajo.
+- Si hay **más de 10 pendientes**, aparecen las **flechas ◀ ▶ para pasar de página** con una **animación de volteo de hoja**.
+- Indicador de **página actual (PÁG. X/Y)** y número de página en cada hoja; las flechas se desactivan al llegar al inicio/final.
+- Cada hoja tiene diseño de cuaderno: encuadernación con argollas al centro, cabecera de página y entradas con línea punteada.
+- Mismo flujo en 2 pasos: al abrir ves el libro, y con "➕ AGREGAR ACTIVIDAD" entras al formulario.
+- Marcado ✓ / desmarcado ○ / eliminación ✕, "LIMPIAR HECHOS" y guardado automático intactos.
+- La **versión web** (class-bit-web) se actualizó igual.
+
+## Instalación
+
+- Descarga `Class-BIT-Setup-1.4.0.exe` e instala sobre tu versión actual.
+- (Opcional) Revisa `release-notes.md` en el repo para el historial de cambios.
+
+---
+
 # Class BIT v1.3.0
 
 ## Nuevo — Cuaderno de recordatorios 📓
