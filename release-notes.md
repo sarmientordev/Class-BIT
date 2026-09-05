@@ -1,14 +1,13 @@
 # Class BIT v1.5.0
 
-## Rediseño — La ventana ES el libro (pantalla completa 8-bit) 📖
+## Rediseño — El libro con su PASTA dentro de la mini ventana 📖
 
-- El libro de recordatorios ahora ocupa **toda la ventana**: al abrirlo, la ventana completa se convierte en el libro (sin caja modal).
-- Estética **8-bit / arcade**: cabecera y barra inferior estilo maquinita (títulos pixelados, botones con biseles duros), papel de cuaderno con líneas y encuadernación tipo bizcocho al centro.
-- El libro se escala para **llenar la ventana** en vertical, manteniendo las 2 hojas y la paginación ◀ ▶ con volteo.
-- Borde fosforescente cyan alrededor del libro y sombras duras pixeladas, acorde a la estética Pixel/Spider.
-- Botón **◀ VOLVER** arriba a la izquierda y **🅸AGREGAR (➕)** arriba a la derecha; abajo: "LIMPIAR HECHOS", paginador y "LISTO ▶".
-- Flujo en 2 pasos intacto: "+" abre el formulario de nueva actividad a pantalla completa.
-- La **versión web** (class-bit-web) se actualizó igual y se ve igual en escritorio y móvil.
+- El libro de recordatorios ya **no ocupa toda la ventana**: se abre como un cuaderno contenido, con su **pasta (tapa) enmarcando las hojas pegada a los bordes** de la mini ventana.
+- Ajustada la parte inferior: tapa inferior estilo contraportada con "LIMPIAR HECHOS", paginador "PÁG. X/Y" y "LISTO ▶"; el horario queda visible alrededor (fondo atenuado) y se cierra con **◀ VOLVER**, "LISTO ▶" o pulsando fuera → ya puedes volver a agregar clase de inmediato.
+- Formulario de nueva actividad contenido en la misma pasta, compacto.
+- **Horas de la malla en amarillo papel** (color de las hojas del cuaderno) y más grandes para distinguirlas bien en todos los temas.
+- Mantiene el libro de 2 hojas, 5 pendientes por hoja, paginación ◀ ▶ con volteo 3D y la estética 8-bit.
+- La **versión web** (class-bit-web) se actualizó igual.
 
 ## Instalación
 
