@@ -1,12 +1,13 @@
 # Class BIT v1.5.0
 
-## Rediseño — El libro con su PASTA dentro de la mini ventana 📖
+## Rediseño — El libro es CUADERNO 8-BITS con pasta y volumen horizontal 📖
 
-- El libro de recordatorios ya **no ocupa toda la ventana**: se abre como un cuaderno contenido, con su **pasta (tapa) enmarcando las hojas pegada a los bordes** de la mini ventana.
-- Ajustada la parte inferior: tapa inferior estilo contraportada con "LIMPIAR HECHOS", paginador "PÁG. X/Y" y "LISTO ▶"; el horario queda visible alrededor (fondo atenuado) y se cierra con **◀ VOLVER**, "LISTO ▶" o pulsando fuera → ya puedes volver a agregar clase de inmediato.
-- Formulario de nueva actividad contenido en la misma pasta, compacto.
-- **Horas de la malla en amarillo papel** (color de las hojas del cuaderno) y más grandes para distinguirlas bien en todos los temas.
-- Mantiene el libro de 2 hojas, 5 pendientes por hoja, paginación ◀ ▶ con volteo 3D y la estética 8-bit.
+- El libro de recordatorios abre como un **cuaderno con pasta roja 8-bit** dentro de la mini ventana, **idéntico al concepto `cuaderno-concept.html`**.
+- A la vista (libro abierto): **2 hojas de papel crema** (izquierda y derecha) con cantos de hojas apiladas en 3D a cada lado, **espiral central con 9 anillas metalizadas**, **marcapáginas azul** y banda dorada en la tapa.
+- Botonera estilo máquina arcade: **◀ VOLVER · 📓 LIBRO DE TAREAS Y PENDIENTES · ➕ NUEVA TAREA** arriba; abajo **LIMPIAR HECHOS · ◀ ANTERIOR · HOJA X/Y · SIGUIENTE ▶ · LISTO ▶**.
+- Renglones de papel con 5 pendientes por hoja (10 por vista): el lleno trae check ○/✓, texto y fecha; el vacío es un recuadro punteado con **recuadro rojo "+"** que rota al pasar el cursor. El formulario de nueva tarea es una **form-box roja** con borde negro y inputs pixel (VT323).
+- Paginación en "HOJAS" con volteo 3D y contador **HOJA X/Y** (antes PÁG.). Se corrige además un error que rompía el contador al abrir el libro (`totalPages` no definido → `totalSpreads`).
+- Horas de la malla en **amarillo papel** y más grandes para distinguirlas en todos los temas.
 - La **versión web** (class-bit-web) se actualizó igual.
 
 ## Instalación
