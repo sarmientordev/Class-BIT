@@ -14,6 +14,7 @@
 
 - **Sistema de CORRIDO**: se eliminó el botón "➕ NUEVA TAREA" de la barra superior. Ahora el botón **"➕ NUEVA TAREA" vive dentro del PRIMER SLOT vacío** (estilo grande, rojo sobre fondo crema). Al agregar, las tareas **se corren hacia abajo** y siguen hasta pasar a la siguiente hoja de forma automática (el libro voltea solo cuando la hoja queda llena).
 - **Paginador con flechas animadas**: los botones "◀ ANTERIOR"/"SIGUIENTE ▶" se reemplazaron por **flechas pixel ◀ ▶** que brillan en cian al pasar el cursor y "navegan" hacia el lado con el volteo 3D de hoja, manteniendo el contador HOJA X/Y.
+- **Fix**: cuando el libro está vacío, el velo "Tu libro está vacío" tapaba el botón + del slot 1 y no dejaba agregar nada. Ahora el botón **"➕ NUEVA TAREA" del primer slot es la puerta de entrada** cuando el libro está vacío (siempre visible y clicable) y el velo informativo ya no bloquea nunca.
 - La **versión web** (class-bit-web) se actualizó igual (deploy automático en Vercel).
 
 ## Instalación
