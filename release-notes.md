@@ -4,11 +4,17 @@
 
 - El libro de recordatorios abre como un **cuaderno con pasta roja 8-bit** dentro de la mini ventana, **idéntico al concepto `cuaderno-concept.html`**.
 - A la vista (libro abierto): **2 hojas de papel crema** (izquierda y derecha) con cantos de hojas apiladas en 3D a cada lado, **espiral central con 9 anillas metalizadas**, **marcapáginas azul** y banda dorada en la tapa.
-- Botonera estilo máquina arcade: **◀ VOLVER · 📓 LIBRO DE TAREAS Y PENDIENTES · ➕ NUEVA TAREA** arriba; abajo **LIMPIAR HECHOS · ◀ ANTERIOR · HOJA X/Y · SIGUIENTE ▶ · LISTO ▶**.
+- Botonera estilo máquina arcade: **◀ VOLVER · 📓 LIBRO DE TAREAS Y PENDIENTES** arriba; abajo **LIMPIAR HECHOS · ◀ · HOJA X/Y · ▶ · LISTO ▶**.
 - Renglones de papel con 5 pendientes por hoja (10 por vista): el lleno trae check ○/✓, texto y fecha; el vacío es un recuadro punteado con **recuadro rojo "+"** que rota al pasar el cursor. El formulario de nueva tarea es una **form-box roja** con borde negro y inputs pixel (VT323).
 - Paginación en "HOJAS" con volteo 3D y contador **HOJA X/Y** (antes PÁG.). Se corrige además un error que rompía el contador al abrir el libro (`totalPages` no definido → `totalSpreads`).
 - Horas de la malla en **amarillo papel** y más grandes para distinguirlas en todos los temas.
 - La **versión web** (class-bit-web) se actualizó igual.
+
+## Actualización (junio 2026)
+
+- **Sistema de CORRIDO**: se eliminó el botón "➕ NUEVA TAREA" de la barra superior. Ahora el botón **"➕ NUEVA TAREA" vive dentro del PRIMER SLOT vacío** (estilo grande, rojo sobre fondo crema). Al agregar, las tareas **se corren hacia abajo** y siguen hasta pasar a la siguiente hoja de forma automática (el libro voltea solo cuando la hoja queda llena).
+- **Paginador con flechas animadas**: los botones "◀ ANTERIOR"/"SIGUIENTE ▶" se reemplazaron por **flechas pixel ◀ ▶** que brillan en cian al pasar el cursor y "navegan" hacia el lado con el volteo 3D de hoja, manteniendo el contador HOJA X/Y.
+- La **versión web** (class-bit-web) se actualizó igual (deploy automático en Vercel).
 
 ## Instalación
 
