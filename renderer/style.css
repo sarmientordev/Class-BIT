@@ -1719,58 +1719,30 @@ select.pixel-input { cursor: pointer; }
 }
 .book-page .reminder-del:hover { background: #ff0000; }
 
-/* Slot Vacío con recuadro y '+' rojo al centro */
+/* Slot Vacío transparente (camuflado con la hoja): solo la línea del cuaderno */
 .book-page .task-slot.empty {
-  background: rgba(255, 255, 255, 0.15);
-  border: 2px dashed rgba(84, 56, 38, 0.4);
+  background: transparent;
+  border: none;
   border-bottom: 4px solid #543826;
-  cursor: pointer;
+  cursor: default;
 }
 .book-page .task-slot.empty:hover {
-  background: rgba(0, 245, 212, 0.18);
-  border: 2px solid #000000;
-  box-shadow: 0 0 10px var(--accent-cyan);
+  background: transparent;
+  border: none;
+  box-shadow: none;
 }
 
-.book-page .slot-plus-box {
+/* Texto tenue "agregar tarea" (detalle camuflado con la hoja) */
+.book-page .slot-hint {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
   height: 100%;
-}
-
-.book-page .slot-plus-box .plus-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 26px;
-  height: 26px;
-  background: #c83646;
-  color: #ffffff;
-  border: 2px solid #000000;
-  font-family: var(--font-pixel);
-  font-size: 14px;
-  box-shadow: 2px 2px 0 #000000;
-  transition: transform 0.15s ease, background-color 0.15s ease;
-}
-
-.book-page .task-slot.empty:hover .slot-plus-box .plus-icon {
-  background: var(--accent-cyan);
-  color: #000000;
-  transform: scale(1.15) rotate(90deg);
-}
-
-.book-page .slot-plus-box .plus-text {
   font-family: var(--font-pixel);
   font-size: 7px;
-  color: #543826;
-  letter-spacing: 1px;
-}
-.book-page .task-slot.empty:hover .slot-plus-box .plus-text {
-  color: #000000;
-  text-shadow: 0 0 4px var(--accent-cyan);
+  color: rgba(84, 56, 38, 0.45);
+  letter-spacing: 2px;
 }
 
 /* ▸ BOTÓN GRANDE DEL PRIMER SLOT VACÍO (sistema de corrido) */
@@ -1783,10 +1755,12 @@ select.pixel-input { cursor: pointer; }
   gap: 8px;
   white-space: nowrap;
 }
+.book-page .task-slot.empty.is-add-slot {
+  cursor: pointer;
+}
 .book-page .task-slot.empty.is-add-slot:hover {
-  background: rgba(255, 255, 255, 0.15);
-  border: 2px dashed rgba(84, 56, 38, 0.4);
-  border-bottom: 4px solid #543826;
+  background: rgba(0, 245, 212, 0.06);
+  border: none;
   box-shadow: none;
 }
 
