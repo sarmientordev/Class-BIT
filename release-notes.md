@@ -1,5 +1,13 @@
 # Class BIT v1.5.0
 
+## Orden estricto + botón grande NUEVA TAREA (recorre los slots de uno en uno)
+
+- **Se eliminan las cajas "+ AGREGAR TAREA"** de los slots vacíos: ya no hay botones sueltos en cada renglón. Solo hay **UN botón grande "➕ NUEVA TAREA"** que vive en el primer slot libre (justo debajo de la última tarea) y **recorre los slots de uno en uno en orden consecutivo** (slot 1 → 2 → 3…), sin saltar huecos ni permitir desorden.
+- Los **slots vacíos siguientes muestran el texto tenue "agregar tarea"** camuflado con la hoja (tono marrón pálido, pixel 7px). Son **no clicables**: la única forma de agregar es el botón grande, lo que **obliga a mantener el orden**.
+- **Orden de inserción**: las tareas ya NO se reordenan automáticamente por fecha. Quedan en el orden exacto en que se agregan (el usuario decide el orden y el libro lo respeta).
+- Los **5 slots por hoja siguen siempre visibles** (10 por libro) y la flecha ▶ continúa permitiendo pasar a la hoja nueva al llenar las 10 tareas.
+- La **versión web** (class-bit-web) se actualizó igual.
+
 ## Rediseño — El libro es CUADERNO 8-BITS con pasta y volumen horizontal 📖
 
 - El libro de recordatorios abre como un **cuaderno con pasta roja 8-bit** dentro de la mini ventana, **idéntico al concepto `cuaderno-concept.html`**.
