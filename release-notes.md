@@ -16,6 +16,8 @@
 - **Paginador con flechas animadas**: los botones "◀ ANTERIOR"/"SIGUIENTE ▶" se reemplazaron por **flechas pixel ◀ ▶** que brillan en cian al pasar el cursor y "navegan" hacia el lado con el volteo 3D de hoja, manteniendo el contador HOJA X/Y.
 - **Fix**: cuando el libro está vacío, el velo "Tu libro está vacío" tapaba el botón + del slot 1 y no dejaba agregar nada. Ahora el botón **"➕ NUEVA TAREA" del primer slot es la puerta de entrada** cuando el libro está vacío (siempre visible y clicable) y el velo informativo ya no bloquea nunca.
 - **Botón de agregar más limpio**: el botón "➕ NUEVA TAREA" ahora aparece **solo en el primer slot libre DESPUÉS del último pendiente** (los demás renglones vacíos ya no se dibujan). Se va moviendo hacia abajo conforme se agregan tareas, y al llenar una hoja el libro voltea solo a la siguiente.
+- **Corregido el diseño de los 10 slots**: se restauraron los **5 slots por hoja siempre visibles** (10 por libro). Las tareas llenan los renglones sucesivamente desde arriba (sin huecos ni "separados") y el botón "➕ NUEVA TAREA" queda justo debajo de la última tarea, corriéndose hacia abajo al agregar.
+- **Corregido pasar de hoja al llenar las 10**: cuando la hoja queda completa, la flecha ▶ ahora permite pasar a la hoja nueva (HOJA 2/2) donde el botón sigue debajo de la última tarea (slot 11) y el corrido continúa hacia la siguiente página.
 - La **versión web** (class-bit-web) se actualizó igual (deploy automático en Vercel).
 
 ## Instalación
