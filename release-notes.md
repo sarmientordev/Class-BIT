@@ -1,5 +1,11 @@
 # Class BIT v1.5.0
 
+## Ajuste diseño + fix tema SPIDER
+
+- **Recuadros decorativos en los slots vacíos**: los renglones vacíos del libro vuelven a verse como **recuadros punteados marrones** (diseño anterior). Es solo visual: **no abren el formulario** y el texto tenue ya no se muestra. El botón **"➕ NUEVA TAREA"** sigue igual: recorre los slots de uno en uno en orden consecutivo y es el único que agrega tareas.
+- **Fix tema SPIDER al iniciar**: al abrir el programa (o actualizar), la hora y el día ya no se ven **rosados** (el color del tema base pisaba el rojo del spider). Ahora al arrancar con el tema SPIDER-VERSE, la hora y la fecha quedan en su **rojo original `#cc0000`** desde el inicio, sin necesidad de volver a seleccionar el tema.
+- La **versión web** (class-bit-web) se actualizó igual.
+
 ## Orden estricto + botón grande NUEVA TAREA (recorre los slots de uno en uno)
 
 - **Se eliminan las cajas "+ AGREGAR TAREA"** de los slots vacíos: ya no hay botones sueltos en cada renglón. Solo hay **UN botón grande "➕ NUEVA TAREA"** que vive en el primer slot libre (justo debajo de la última tarea) y **recorre los slots de uno en uno en orden consecutivo** (slot 1 → 2 → 3…), sin saltar huecos ni permitir desorden.
