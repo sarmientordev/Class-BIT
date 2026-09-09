@@ -40,7 +40,7 @@ const DEFAULT_DATA = {
   version: DATA_VERSION,
   classes: [],
   reminders: [],
-  settings: { showClock: true, use24h: false, theme: 'pixel', soundEnabled: true, soundChoice: 'retro', remind15: true, remind5: true, remindTomorrow: true },
+  settings: { showClock: true, use24h: false, theme: 'pixel', soundEnabled: true, soundChoice: 'retro', remind15: true, remind5: true, remindTomorrow: true, remindWeek: true, remind3d: true, remind1d: true, remindToday: true },
 };
 
 // Migra datos de versiones anteriores del esquema al formato actual
@@ -318,6 +318,75 @@ function checkTomorrowClasses() {
   writeNotified(notified);
 }
 
+// Avisos de pendientes del libro: 1 semana / 3 días / 1 día / vence HOY (día exacto, tras 8:00 am)
+const REMINDER_TYPE_TITLE = { tarea: '📚 TAREA', trabajo: '📄 TRABAJO', examen: '📝 EXAMEN', pendiente: '⏳ PENDIENTE' };
+
+function daysUntilDate(dateStr) {
+  if (!dateStr) return null;
+  const [y, m, d] = dateStr.split('-').map(Number);
+  if (!y || !m || !d) return null;
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const target = new Date(y, m - 1, d);
+  return Math.round((target - today) / 86400000);
+}
+
+function checkReminderNotifications() {
+  const data = readData();
+  if (!data.reminders || data.reminders.length === 0) return;
+  const notified = readNotified();
+  const now = new Date();
+  if (now.getHours() < 8) return; // evita spam nocturno
+  const s = data.settings || {};
+  const allowWeek = s.remindWeek !== false;
+  const allow3d = s.remind3d !== false;
+  const allow1d = s.remind1d !== false;
+  const allowToday = s.remindToday !== false;
+
+  data.reminders.forEach(r => {
+    if (!r || r.done || !r.date) return;
+    const days = daysUntilDate(r.date);
+    if (days === null) return;
+    if (days < 0) return; // vencidas: no avisar
+    const emoji = REMINDER_TYPE_TITLE[r.type] || '📌';
+    const full = new Date(r.date + 'T00:00:00').toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+    const label = r.text;
+
+    if (allowWeek && days === 7) {
+      const key = `rem:${r.id}:${r.date}:w`;
+      if (!notified[key]) {
+        sendNotification(`⏳ ${emoji} ${label}`, `Falta 1 semana para tu pendiente · ${full}`);
+        notified[key] = true;
+        writeNotified(notified);
+      }
+    }
+    if (allow3d && days === 3) {
+      const key = `rem:${r.id}:${r.date}:3d`;
+      if (!notified[key]) {
+        sendNotification(`⏳ ${emoji} ${label}`, `Faltan 3 días para tu pendiente · ${full}`);
+        notified[key] = true;
+        writeNotified(notified);
+      }
+    }
+    if (allow1d && days === 1) {
+      const key = `rem:${r.id}:${r.date}:1d`;
+      if (!notified[key]) {
+        sendNotification(`🚨 ${emoji} ${label}`, `¡Falta 1 día para tu pendiente! · ${full}`);
+        notified[key] = true;
+        writeNotified(notified);
+      }
+    }
+    if (allowToday && days === 0) {
+      const key = `rem:${r.id}:${r.date}:today`;
+      if (!notified[key]) {
+        sendNotification(`🔥 ${emoji} ${label}`, `¡Este pendiente vence HOY! · ${full}`);
+        notified[key] = true;
+        writeNotified(notified);
+      }
+    }
+  });
+}
+
 // Actualiza el tooltip de la bandeja con la próxima clase
 function updateTrayTooltip() {
   if (!tray) return;
@@ -365,6 +434,7 @@ function runScheduler() {
     checkClassNotifications();
     checkHolidayNotifications();
     checkTomorrowClasses();
+    checkReminderNotifications();
     updateTrayTooltip();
   } catch (err) {
     console.error('Scheduler error:', err);

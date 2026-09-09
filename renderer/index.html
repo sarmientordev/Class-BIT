@@ -287,6 +287,26 @@
         </div>
       </div>
       <div class="form-group">
+        <label class="pixel-label">AVISOS DE PENDIENTES (LIBRO)</label>
+        <div class="toggle-row">
+          <span class="toggle-desc">Avisar faltando 1 semana</span>
+          <button class="toggle-btn" id="toggle-remind-week" role="switch" aria-checked="false"></button>
+        </div>
+        <div class="toggle-row">
+          <span class="toggle-desc">Avisar faltando 3 días</span>
+          <button class="toggle-btn" id="toggle-remind-3d" role="switch" aria-checked="false"></button>
+        </div>
+        <div class="toggle-row">
+          <span class="toggle-desc">Avisar faltando 1 día</span>
+          <button class="toggle-btn" id="toggle-remind-1d" role="switch" aria-checked="false"></button>
+        </div>
+        <div class="toggle-row">
+          <span class="toggle-desc">Avisar el MISMO día (vence hoy)</span>
+          <button class="toggle-btn" id="toggle-remind-today" role="switch" aria-checked="false"></button>
+        </div>
+        <p class="settings-note">Los avisos del libro usan el sonido de notificación elegido arriba.</p>
+      </div>
+      <div class="form-group">
         <label class="pixel-label">TEMA</label>
         <select class="pixel-input" id="select-theme">
           <option value="pixel">PIXEL</option>
@@ -347,6 +367,7 @@
   <header class="book-bar">
     <button class="btn-pixel" id="reminders-close" aria-label="Volver">◀ VOLVER</button>
     <h2 class="book-title" id="reminders-title">📓 LIBRO DE TAREAS Y PENDIENTES</h2>
+    <span class="book-badge" id="book-badge">📓 PENDIENTES: 0</span>
   </header>
 
   <!-- CUERPO PRINCIPAL (VOLUMEN HORIZONTAL DE HOJAS APILADAS A IZQ Y DER) -->
@@ -359,7 +380,6 @@
         <!-- HOJA IZQUIERDA (PENDIENTES 1 A 5) -->
         <div class="book-page pg-left">
           <div class="book-page-head">
-            <span class="book-page-label">PÁGINA IZQUIERDA</span>
             <span class="book-page-num" id="book-page-num-left">PÁG. 1</span>
           </div>
           <div class="book-page-slots" id="reminders-list-left"></div>
@@ -381,7 +401,6 @@
         <!-- HOJA DERECHA (PENDIENTES 6 A 10) -->
         <div class="book-page pg-right">
           <div class="book-page-head">
-            <span class="book-page-label">PÁGINA DERECHA</span>
             <span class="book-page-num" id="book-page-num-right">PÁG. 2</span>
           </div>
           <div class="book-page-slots" id="reminders-list-right"></div>
@@ -394,7 +413,7 @@
 
   <!-- BARRA INFERIOR DE PAGINACIÓN -->
   <footer class="book-bottombar">
-    <button class="btn-pixel" id="btn-reminders-clear">LIMPIAR HECHOS</button>
+    <button class="btn-pixel" id="btn-reminders-clear">🧹 LIMPIAR VENCIDAS</button>
     <div class="book-pager">
       <button class="btn-page-arrow disabled" id="btn-book-prev" title="Página anterior (voltear hoja)" aria-label="Página anterior (voltear hoja)">◀</button>
       <span class="book-page-count" id="book-page-count">HOJA 1/1</span>
