@@ -1,5 +1,18 @@
 # Class BIT v1.5.0
 
+## Renglones pegados + libro adaptado a cada tema
+
+- **Renglones pegados sin separación**: ya no hay huecos entre los renglones del libro. Las 5 filas de cada hoja quedan **contiguas, llenando exactamente todo el papel** como renglones reales de cuaderno (una sola línea entre fila y fila; el renglón vacío es solo la línea, sin recuadro).
+- **Tarjeta de pendientes rediseñada** (aprovecha el espacio que se liberó): la fila con tarea se muestra como **tarjeta sobre el renglón**, el texto ahora ocupa **hasta 2 líneas** (antes se cortaba en 1 línea con "…"), y la fecha/meta va en su propia línea bajo el texto.
+- **El libro se adapta a cada tema**: el papel, los renglones, la tinta, la tapa, el lomo, el número de hoja y el marcapáginas toman los colores del tema activo:
+  - **Pixel** → cuaderno clásico (papel crema, renglones marrones, tapa roja).
+  - **Spider-Verse** → hoja azul cielo, renglones **rojos** y tapa rojo Spidey.
+  - **Synthwave** → hoja morada oscura, renglones naranja neón, tapa rosa.
+  - **Forest** → hoja crema-verde, renglones y tapa verdes.
+  - **Oscuro / Claro** → hoja y tapa del tema (gris oscura o blanca).
+- **Botón "➕ NUEVA TAREA" intacto**: sigue siendo el único que agrega (recorre los slots en orden) y los renglones vacíos **no abren** el formulario.
+- La **versión web** (class-bit-web) se actualizó igual.
+
 ## Ajuste diseño + fix tema SPIDER
 
 - **Recuadros decorativos en los slots vacíos**: los renglones vacíos del libro vuelven a verse como **recuadros punteados marrones** (diseño anterior). Es solo visual: **no abren el formulario** y el texto tenue ya no se muestra. El botón **"➕ NUEVA TAREA"** sigue igual: recorre los slots de uno en uno en orden consecutivo y es el único que agrega tareas.
