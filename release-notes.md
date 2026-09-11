@@ -1,4 +1,13 @@
-# Class BIT v1.5.0
+# Class BIT v1.6.0
+
+## Tema NEON ARCADE (nuevo)
+
+- **Nuevo tema "NEON ARCADE"** en Ajustes > Tema: style cartucho retro NES / salon arcade.
+  - Fondo negro-azulado (#0c0f12), tarjetas gris plata (#2a323c), texto blanco.
+  - Acentos: rojo NES #e60012, amarillo moneda #ffd954, cian neon #00c2ff, amarillo cartucho #ffb800.
+  - Cielo con "luna moneda" amarilla, nubes gris cartucho; libro con tapa roja, lomo gris y paginas blancas; logo del horario toma los colores del tema.
+- El tema funciona en todas las vistas (horario, semana, festivos, stats) y el libro de tareas se adapta.
+- La **version web** (class-bit-web) se actualizo igual.
 
 ## Renglones pegados + libro adaptado a cada tema
 
